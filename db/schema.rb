@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_21_145030) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_21_145451) do
   create_table "categories", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_21_145030) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_categories_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "log_tags", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "log_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id", "tag_id"], name: "index_log_tags_on_log_id_and_tag_id", unique: true
+    t.index ["log_id"], name: "index_log_tags_on_log_id"
+    t.index ["tag_id"], name: "index_log_tags_on_tag_id"
   end
 
   create_table "logs", charset: "utf8mb3", force: :cascade do |t|
@@ -58,6 +68,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_21_145030) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "log_tags", "logs"
+  add_foreign_key "log_tags", "tags"
   add_foreign_key "logs", "categories"
   add_foreign_key "logs", "users"
 end
