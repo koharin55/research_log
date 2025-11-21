@@ -11,6 +11,24 @@
   </head>
 
   <body>
+    <header>
+      <div>
+        Re:Search -知識を、再発見する。
+      </div>
+
+      <% if user_signed_in? %>
+        <div>
+          こんにちは、<%= current_user.nickname %> さん
+          (<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>)
+        </div>
+      <% else %>
+        <div>
+          <%= link_to "ログイン", new_user_session_path %> /
+          <%= link_to "新規登録", new_user_registration_path %>
+        </div>
+      <% end %>
+    </header>
+    
     <%= yield %>
   </body>
 </html>
