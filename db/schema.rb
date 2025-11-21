@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_21_143954) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_21_145030) do
   create_table "categories", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -21,6 +21,27 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_21_143954) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_categories_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "logs", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id"
+    t.string "title", null: false
+    t.text "body"
+    t.text "code"
+    t.boolean "pinned", default: false, null: false
+    t.integer "copy_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_logs_on_category_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "tags", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
@@ -37,4 +58,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_21_143954) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "logs", "categories"
+  add_foreign_key "logs", "users"
 end
