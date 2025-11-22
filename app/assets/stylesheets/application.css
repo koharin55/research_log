@@ -16,28 +16,28 @@
 
  /* ===== テーマ変数 ===== */
 
-:root[data-theme="light"] {
-  --bg:        #EBEEF5;
-  --panel:     #FAFAFF;
-  --border:    #AAB0C3;
-  --text-main: #1A2238;
-  --text-sub:  #475071;
-  --text-muted:#7C839B;
-  --accent:    #4050B4;
-  --card-bg:   #FFFFFF;
-  --chip-bg:   #E6E8F4;
+:root[data-theme="light"] {  /* ライトモード */
+  --bg:        #EBEEF5;  /* ページ全体の背景色 */
+  --panel:     #FAFAFF;  /* パネル・カードの背景色 */
+  --border:    #AAB0C3;  /* 境界線の色 */
+  --text-main: #20263A;  /* 主要テキストの色 */
+  --text-sub:  #4A5274;  /* 補助テキストの色 */
+  --text-muted:#7C839B;  /* 補足テキストの色 */
+  --accent:    #4050B4;  /* アクセントカラー */
+  --card-bg:   #FFFFFF;  /* カードの背景色 */
+  --chip-bg:   #E6E8F4;  /* タグの背景色 */
 }
 
-:root[data-theme="dark"] {
-  --bg:        #161616;
-  --panel:     #1F1F1F;
-  --border:    #4A4A4A;
-  --text-main: #D6D6D6;
-  --text-sub:  #A9A9A9;
-  --text-muted:#888888;
-  --accent:    #6088FF;
-  --card-bg:   #262626;
-  --chip-bg:   #2E2E2E;
+:root[data-theme="dark"] {  /* ダークモード */
+  --bg:        #161616;  /* ページ全体の背景色 */
+  --panel:     #1F1F1F;  /* パネル・カードの背景色 */
+  --border:    #5A5A5A;  /* 境界線の色 */
+  --text-main: #E0E0E0;  /* 主要テキストの色 */
+  --text-sub:  #C0C0C0;  /* 補助テキストの色 */
+  --text-muted:#888888;  /* 補足テキストの色 */
+  --accent:    #6088FF;  /* アクセントカラー */
+  --card-bg:   #262626;  /* カードの背景色 */
+  --chip-bg:   #303030;  /* タグの背景色 */
 }
 
 /* ===== 全体のベース ===== */
@@ -58,6 +58,13 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+select {
+  color: var(--text-main);
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
 
 /* ===== ヘッダー / メインレイアウト ===== */
 
@@ -156,7 +163,7 @@ a:hover {
 .logs-filters {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .filters-form .filters-row {
@@ -167,14 +174,16 @@ a:hover {
 .filters-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   min-width: 140px;
 }
 .filters-block label {
   font-size: 11px;
   color: var(--text-muted);
 }
-.filters-block input,
+.filters-block input[type="text"],
+.filters-block input[type="search"],
+.filters-block input[type="email"],
 .filters-block select {
   padding: 4px 6px;
   border-radius: 8px;
@@ -233,6 +242,7 @@ a:hover {
   border: none;
   background: transparent;
   cursor: pointer;
+  color: var(--text-main);
   font-size: 16px;
 }
 
@@ -299,7 +309,8 @@ a:hover {
 }
 .code-block {
   position: relative;
-  background: #00000015;
+  background: color-mix(in srgb, var(--panel) 90%, #000000); /* ライト→薄灰、ダーク→濃灰 */
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px;
 }
@@ -311,8 +322,9 @@ a:hover {
 }
 .code-block .btn-accent {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: -6px;
+  right: -4px;
+  border-radius: 16px;
 }
 
 .image-strip {
