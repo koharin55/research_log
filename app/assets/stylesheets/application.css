@@ -400,3 +400,51 @@ select {
   color: #b3261e;
 }
 
+/* カテゴリ管理 */
+
+.categories-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.categories-new h2,
+.categories-list h2 {
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--text-sub);
+}
+
+.categories-form .field {
+  margin-bottom: 8px;
+}
+
+.categories-form input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.categories-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.categories-table th,
+.categories-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.categories-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.categories-actions .btn-subtle {
+  margin-left: 4px;
+}
