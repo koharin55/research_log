@@ -1,34 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" data-theme="light">
   <head>
-    <title>ResearchLog</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Re:Search -知識を、再発見する。</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
-    <header>
-      <div>
-        Re:Search -知識を、再発見する。
+    <header class="app-header">
+      <div class="app-logo">
+        Re:Search <span class="app-subtitle">-知識を、再発見する。</span>
       </div>
 
-      <% if user_signed_in? %>
-        <div>
-          こんにちは、<%= current_user.nickname %> さん
-          (<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>)
+      <div class="app-header-right">
+        <% if user_signed_in? %>
+          <div class="app-user">
+            こんにちは、<%= current_user.nickname %> さん
+            （<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>）
+          </div>
+        <% else %>
+          <div class="app-user">
+            <%= link_to "ログイン", new_user_session_path %> /
+            <%= link_to "新規登録", new_user_registration_path %>
+          </div>
+        <% end %>
+
+        <!-- テーマ切替：☀️ライト / 🌙ダーク / 🖥️自動 -->
+        <div class="theme-switch" role="group" aria-label="テーマ切替">
+          <button type="button" data-mode="light" aria-pressed="false" title="ライト">
+            ☀️ ライト
+          </button>
+          <button type="button" data-mode="dark" aria-pressed="false" title="ダーク">
+            🌙 ダーク
+          </button>
+          <button type="button" data-mode="auto" aria-pressed="true" title="自動（OS連動）">
+            🖥️ 自動
+          </button>
         </div>
-      <% else %>
-        <div>
-          <%= link_to "ログイン", new_user_session_path %> /
-          <%= link_to "新規登録", new_user_registration_path %>
-        </div>
-      <% end %>
+      </div>
     </header>
-    
-    <%= yield %>
+
+    <main class="app-main">
+      <% if notice %>
+        <p class="flash flash-notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="flash flash-alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </main>
   </body>
 </html>
