@@ -1,5 +1,5 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: %i[show edit update destroy toggle_pin increment_copy_count]
+  before_action :set_log, only: %i[edit update destroy toggle_pin increment_copy_count]
 
   # GET /logs
   # メイン画面：検索・フィルタ・ピン留め・詳細表示

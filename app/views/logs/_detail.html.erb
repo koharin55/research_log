@@ -1,0 +1,59 @@
+<div class="log-detail">
+  <header class="log-detail-header">
+    <h1><%= log.title %></h1>
+
+    <div class="log-detail-meta">
+      <span>作成者: <%= log.user.nickname %></span>
+      <span>更新: <%= l(log.updated_at, format: :long) %></span>
+      <span>使用回数: <%= log.copy_count %>回</span>
+    </div>
+
+    <div class="log-detail-tags">
+      <% log.tags.each do |tag| %>
+        <span class="tag-chip">#<%= tag.name %></span>
+      <% end %>
+      <% if log.category %>
+        <span class="category-pill">📂 <%= log.category.name %></span>
+      <% end %>
+    </div>
+  </header>
+
+  <section class="log-detail-body">
+    <% if log.body.present? %>
+      <h2>メモ</h2>
+      <div class="log-body-text">
+        <%= simple_format log.body %>
+      </div>
+    <% end %>
+
+    <% if log.code.present? %>
+      <h2>コード</h2>
+      <div class="code-block">
+        <pre><code><%= log.code %></code></pre>
+        <button
+          class="btn-accent js-copy-code"
+          data-log-id="<%= log.id %>">
+          Copy
+        </button>
+      </div>
+      <p class="hint">Copyボタンでコードがクリップボードにコピーされます。</p>
+    <% end %>
+
+    <% if log.images.attached? %>
+      <h2>画像（<%= log.images.size %> / 5）</h2>
+      <div class="image-strip">
+        <% log.images.each do |img| %>
+          <%= image_tag img.variant(resize_to_limit: [320, 240]), class: "log-image-thumb" %>
+        <% end %>
+      </div>
+      <p class="hint">編集画面で Ctrl+V からスクリーンショットを貼り付けられます。</p>
+    <% end %>
+  </section>
+
+  <footer class="log-detail-actions">
+    <%= link_to "編集", edit_log_path(log), class: "btn-accent" %>
+    <%= link_to "削除", log_path(log),
+          data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+          class: "btn-danger" %>
+  </footer>
+</div>

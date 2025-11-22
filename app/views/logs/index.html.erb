@@ -1,0 +1,86 @@
+<div class="logs-layout">
+  <!-- 左ペイン：検索・フィルタ・一覧 -->
+  <section class="logs-pane-list card">
+    <div class="logs-filters">
+      <%= form_with url: logs_path, method: :get, local: true, class: "filters-form" do |f| %>
+        <div class="filters-row">
+          <div class="filters-block">
+            <%= f.label :q, "検索" %>
+            <%= f.search_field :q,
+                  value: params[:q],
+                  placeholder: "キーワード（タイトル / 本文 / コード）" %>
+          </div>
+
+          <div class="filters-block">
+            <%= label_tag :tag, "タグ" %>
+            <%= text_field_tag :tag, params[:tag],
+                  list: "tag-suggestions",
+                  placeholder: "例）rails, vlookup など" %>
+            <datalist id="tag-suggestions">
+              <% @tag_suggestions.each do |tag| %>
+                <option value="<%= tag.name %>"></option>
+              <% end %>
+            </datalist>
+          </div>
+
+          <div class="filters-block">
+            <%= f.label :category_id, "カテゴリ" %>
+            <%= f.collection_select :category_id,
+                  @categories, :id, :name,
+                  { include_blank: "すべて" } %>
+          </div>
+
+          <div class="filters-block">
+            <%= f.label :sort, "並び順" %>
+            <%= f.select :sort,
+                  [["更新日（新しい順）", "recent"],
+                   ["使用頻度（コピー回数）", "used"]],
+                  { selected: params[:sort] || "recent" } %>
+          </div>
+
+          <div class="filters-block filters-submit">
+            <%= f.submit "適用", class: "btn-accent" %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="filters-actions">
+        <%= link_to "＋ 新規ログ", new_log_path, class: "btn-accent" %>
+        <%= link_to "カテゴリ管理", categories_path, class: "btn-subtle" %>
+      </div>
+    </div>
+
+    <% if @pinned_logs.empty? && @other_logs.empty? %>
+      <div class="empty-state card">
+        <p>まだ学習ログがありません。</p>
+        <p>まずは「新規ログ作成」から、今日の学びを書いてみましょう。</p>
+      </div>
+    <% else %>
+      <% if @pinned_logs.any? %>
+        <div class="logs-pinned">
+          <h2>⭐ ピン留め中のログ</h2>
+          <% @pinned_logs.each do |log| %>
+            <%= render "log_card", log: log, selected_log: @selected_log %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="logs-list">
+        <% @other_logs.each do |log| %>
+          <%= render "log_card", log: log, selected_log: @selected_log %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+
+  <!-- 右ペイン：詳細 -->
+  <section class="logs-pane-detail card">
+    <% if @selected_log %>
+      <%= render "detail", log: @selected_log %>
+    <% else %>
+      <div class="empty-state">
+        <p>左の一覧からログを選択するか、新規ログを作成してください。</p>
+      </div>
+    <% end %>
+  </section>
+</div>

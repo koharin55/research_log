@@ -1,0 +1,39 @@
+<% active = defined?(selected_log) && selected_log.present? && selected_log.id == log.id %>
+
+<div class="log-card <%= 'is-active' if active %>">
+  <div class="log-card-header">
+    <%= link_to log.title,
+          logs_path(
+            selected_id: log.id,
+            q:          params[:q],
+            tag:        params[:tag],
+            category_id: params[:category_id],
+            sort:       params[:sort]
+          ),
+          class: "log-card-title" %>
+
+    <%= button_to toggle_pin_log_path(log),
+          method: :patch,
+          class: "pin-button",
+          form: { data: { turbo_confirm: nil } } do %>
+      <span><%= log.pinned? ? "⭐" : "☆" %></span>
+    <% end %>
+  </div>
+
+  <div class="log-card-meta">
+    <div class="log-card-tags">
+      <% log.tags.each do |tag| %>
+        <span class="tag-chip">#<%= tag.name %></span>
+      <% end %>
+    </div>
+
+    <% if log.category %>
+      <span class="category-pill">📂 <%= log.category.name %></span>
+    <% end %>
+  </div>
+
+  <div class="log-card-footer">
+    <span class="usage">使用回数: <%= log.copy_count %>回</span>
+    <span class="updated">更新: <%= l(log.updated_at, format: :short) %></span>
+  </div>
+</div>
