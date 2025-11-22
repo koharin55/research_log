@@ -1,0 +1,64 @@
+
+<!-- app/views/categories/index.html.erb -->
+<h1>カテゴリ管理</h1>
+
+<div class="card categories-layout">
+  <section class="categories-new">
+    <h2>新しいカテゴリを追加</h2>
+
+    <%= form_with model: @category, url: categories_path, local: true, class: "categories-form" do |f| %>
+      <% if @category.errors.any? %>
+        <div class="errors">
+          <ul>
+            <% @category.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name, "カテゴリ名" %>
+        <%= f.text_field :name, required: true, placeholder: "例）Rails, Excel VBA, M言語" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "追加", class: "btn-accent" %>
+        <%= link_to "戻る", logs_path, class: "btn-subtle" %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="categories-list">
+    <h2>登録済みカテゴリ</h2>
+
+    <% if @categories.empty? %>
+      <div class="empty-state">
+        <p>まだカテゴリがありません。</p>
+        <p>最初のカテゴリとして「Ruby」「Excel VBA」などを作成してみましょう。</p>
+      </div>
+    <% else %>
+      <table class="categories-table">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th style="width: 120px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <td><%= category.name %></td>
+              <td class="categories-actions">
+                <%= link_to "編集", edit_category_path(category), class: "btn-subtle" %>
+                <%= link_to "削除", category_path(category),
+                      data: { turbo_method: :delete, turbo_confirm: "カテゴリ\"#{category.name}\"を削除しますか？（関連ログのカテゴリは未設定になります）" },
+                      class: "btn-subtle" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </section>
+</div>

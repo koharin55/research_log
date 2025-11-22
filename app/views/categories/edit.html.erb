@@ -1,0 +1,26 @@
+<!-- app/views/categories/edit.html.erb -->
+<h1>カテゴリを編集</h1>
+
+<div class="card">
+  <%= form_with model: @category, local: true do |f| %>
+    <% if @category.errors.any? %>
+      <div class="errors">
+        <ul>
+          <% @category.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, "カテゴリ名" %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "更新", class: "btn-accent" %>
+      <%= link_to "一覧に戻る", categories_path, class: "btn-subtle" %>
+    </div>
+  <% end %>
+</div>
