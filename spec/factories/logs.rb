@@ -6,6 +6,7 @@
 #  body        :text(65535)
 #  code        :text(65535)
 #  copy_count  :integer          default(0), not null
+#  memo        :text(65535)
 #  pinned      :boolean          default(FALSE), not null
 #  title       :string(255)      not null
 #  created_at  :datetime         not null

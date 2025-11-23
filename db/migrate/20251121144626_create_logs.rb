@@ -6,6 +6,7 @@ class CreateLogs < ActiveRecord::Migration[7.1]
       t.string     :title,      null: false
       t.text       :body
       t.text       :code
+      t.text       :memo
       t.boolean    :pinned,     null: false, default: false
       t.integer    :copy_count, null: false, default: 0
 
