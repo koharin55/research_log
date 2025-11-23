@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_21_145725) do
     t.string "title", null: false
     t.text "body"
     t.text "code"
+    t.text "memo"
     t.boolean "pinned", default: false, null: false
     t.integer "copy_count", default: 0, null: false
     t.datetime "created_at", null: false

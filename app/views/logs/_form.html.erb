@@ -1,4 +1,4 @@
-<%= form_with model: @log do |f| %>
+<%= form_with model: @log, html: { class: "js-log-form" } do |f| %>
   <% if @log.errors.any? %>
     <div class="errors card">
       <p><%= pluralize(@log.errors.count, "件") %>のエラーがあります。</p>
@@ -43,7 +43,9 @@
   <div class="field">
     <%= f.label :images, "画像（0〜5枚）" %>
     <%= f.file_field :images, multiple: true, accept: "image/*" %>
-    <p class="hint">Ctrl+V でスクリーンショットを貼り付ける機能は後でJSで追加。</p>
+    <p class="hint paste-hint">
+      ファイル選択のほか、フォーム上で Ctrl+V するとスクリーンショットを画像として追加できます。
+    </p>
   </div>
 
   <div class="actions">
