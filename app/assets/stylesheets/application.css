@@ -237,6 +237,12 @@ select {
   font-weight: 500;
   color: var(--text-main);
 }
+.log-card-memo {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
 
 .pin-button {
   border: none;

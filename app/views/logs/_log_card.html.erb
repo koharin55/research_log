@@ -11,6 +11,12 @@
             sort:       params[:sort]
           ),
           class: "log-card-title" %>
+    
+    <% if log.memo.present? %>
+      <div class="log-card-memo">
+        <%= truncate(log.memo, length: 30) %>
+      </div>
+    <% end %>
 
     <%= button_to toggle_pin_log_path(log),
           method: :patch,

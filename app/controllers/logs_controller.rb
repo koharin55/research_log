@@ -32,6 +32,7 @@ class LogsController < ApplicationController
     @log = current_user.logs.new(log_params)
 
     if @log.save
+      attach_images(@log)
       assign_tags(@log)
       redirect_to logs_path(selected_id: @log.id), notice: "ログを作成しました。"
     else
@@ -45,7 +46,14 @@ class LogsController < ApplicationController
 
   # PATCH/PUT /logs/:id
   def update
+    # ▼ ここから削除処理（必ず where(id: ids) を噛ませる）
+    if params[:log] && params[:log][:remove_image_ids].present?
+      ids = params[:log][:remove_image_ids].map(&:to_i)
+      @log.images.where(id: ids).each(&:purge_later)
+    end
+
     if @log.update(log_params)
+      attach_images(@log)           # ← 新規作成時もここで追加
       assign_tags(@log)
       redirect_to logs_path(selected_id: @log.id), notice: "ログを更新しました。"
     else
@@ -107,13 +115,22 @@ class LogsController < ApplicationController
 
   # ストロングパラメーター
   def log_params
-    params.require(:log).permit(
+    permitted = params.require(:log).permit(
       :title,
       :body,
       :code,
-      :category_id,
-      images: [] # ActiveStorage
+      :memo,
+      :category_id
     )
+  end
+
+  def attach_images(log)
+    return unless params[:log] && params[:log][:images].present?
+
+    params[:log][:images].each do |image|
+      next if image.blank?          # ["", #<UploadedFile ...>] の空文字をスキップ
+      log.images.attach(image)      # ← ここが「追加」になる
+    end
   end
 
   # タグの紐付け（フォームから tag_names を "Ruby, Rails, scope" みたいな形式で受け取る想定）

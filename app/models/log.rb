@@ -33,7 +33,7 @@ class Log < ApplicationRecord
   has_many :tags, through: :log_tags
 
   validates :title, presence: true, length: { maximum: 100 }
-
+  validates :memo, length: { maximum: 200 }, allow_blank: true
   validate :images_count_within_limit
 
   scope :pinned_first, -> { order(pinned: :desc, updated_at: :desc) }

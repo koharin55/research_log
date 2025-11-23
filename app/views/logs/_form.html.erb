@@ -1,4 +1,7 @@
-<%= form_with model: @log, html: { class: "js-log-form" } do |f| %>
+<%= form_with model: @log,
+              html: { class: "js-log-form",
+                      data: { existing_images_count: @log.images.size } } do |f| %>
+
   <% if @log.errors.any? %>
     <div class="errors card">
       <p><%= pluralize(@log.errors.count, "件") %>のエラーがあります。</p>
@@ -46,7 +49,27 @@
     <p class="hint paste-hint">
       ファイル選択のほか、フォーム上で Ctrl+V するとスクリーンショットを画像として追加できます。
     </p>
+
+    <% if @log.persisted? && @log.images.attached? %>
+      <div class="image-strip">
+        <% @log.images.each do |img| %>
+          <div class="image-item">
+            <%= image_tag img.variant(resize_to_limit: [160, 120]), class: "log-image-thumb" %>
+            <label class="hint">
+              <%= check_box_tag "log[remove_image_ids][]", img.id %>
+              この画像を削除
+            </label>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
+  <div class="field">
+  <%= f.label :memo, "ひとことメモ" %>
+  <%= f.text_area :memo, placeholder: "例）◯◯案件で使用。次回は△△も自動化したい" %>
+  <p class="hint">あとで見返すための一行メモやアイディアを書いておけます。</p>
+</div>
 
   <div class="actions">
     <%= f.submit class: "btn-accent" %>

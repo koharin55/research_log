@@ -48,6 +48,11 @@
       </div>
       <p class="hint">編集画面で Ctrl+V からスクリーンショットを貼り付けられます。</p>
     <% end %>
+
+    <% if log.memo.present? %>
+      <h2>ひとことメモ</h2>
+      <p><%= simple_format log.memo %></p>
+    <% end %>
   </section>
 
   <footer class="log-detail-actions">
