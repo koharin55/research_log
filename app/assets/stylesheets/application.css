@@ -69,6 +69,18 @@ a:hover {
   border-radius: 8px;
 }
 
+select {
+  color: var(--text-main);
+}
+
+.filters-block select {
+  color: var(--text-main);
+}
+
+.log-form select {
+  color: var(--text-main);
+}
+
 input[type="text"],
 input[type="search"],
 input[type="email"],
@@ -243,7 +255,7 @@ textarea {
 
 .filters-block label {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-sub);
 }
 /* 検索モード（AND / OR）の表示 */
 
