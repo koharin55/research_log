@@ -5,7 +5,10 @@ class LogsController < ApplicationController
   # メイン画面：検索・フィルタ・ピン留め・詳細表示
   def index
     @categories      = current_user.categories.order(:name)
-    @tag_suggestions = Tag.order(:name) # まずは全タグでOK（必要があれば user スコープに変える）
+    @tag_suggestions = Tag.joins(:logs)
+                      .where(logs: { user_id: current_user.id })  # ユーザーのログに紐づくタグのみ
+                      .distinct
+                      .order(:name)
 
     # 検索フォームの状態保持用インスタンス変数
     @keyword      = params[:q]
