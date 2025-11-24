@@ -1,20 +1,11 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
 
- /* ===== テーマ変数 ===== */
+/* =========================
+   テーマ変数
+   ========================= */
 
 :root[data-theme="light"] {  /* ライトモード */
   --bg:        #EBEEF5;  /* ページ全体の背景色 */
@@ -26,25 +17,27 @@
   --accent:    #4050B4;  /* アクセントカラー */
   --card-bg:   #FFFFFF;  /* カードの背景色 */
   --chip-bg:   #E6E8F4;  /* タグの背景色 */
-  --modal-close-bg: rgba(0, 0, 0, 0.55);  /* 画像拡大時の背景色 */
-  --modal-close-color: #fff;  /* 画像拡大時のｘアイコンの色 */
+  --modal-close-bg: rgba(0, 0, 0, 0.55);  /* 画像拡大時の × 背景 */
+  --modal-close-color: #fff;              /* 画像拡大時の × 文字色 */
 }
 
 :root[data-theme="dark"] {  /* ダークモード */
-  --bg:        #161616;  /* ページ全体の背景色 */
-  --panel:     #1F1F1F;  /* パネル・カードの背景色 */
-  --border:    #5A5A5A;  /* 境界線の色 */
-  --text-main: #E0E0E0;  /* 主要テキストの色 */
-  --text-sub:  #C0C0C0;  /* 補助テキストの色 */
-  --text-muted:#888888;  /* 補足テキストの色 */
-  --accent:    #6088FF;  /* アクセントカラー */
-  --card-bg:   #262626;  /* カードの背景色 */
-  --chip-bg:   #303030;  /* タグの背景色 */
-  --modal-close-bg: rgba(255, 255, 255, 0.85);  /* 画像拡大時の背景色 */
-  --modal-close-color: #111;  /* 画像拡大時のｘアイコンの色 */
+  --bg:        #161616;
+  --panel:     #1F1F1F;
+  --border:    #5A5A5A;
+  --text-main: #E0E0E0;
+  --text-sub:  #C0C0C0;
+  --text-muted:#888888;
+  --accent:    #6088FF;
+  --card-bg:   #262626;
+  --chip-bg:   #303030;
+  --modal-close-bg: rgba(255, 255, 255, 0.85);
+  --modal-close-color: #111;
 }
 
-/* ===== 全体のベース ===== */
+/* =========================
+   全体のベース
+   ========================= */
 
 html, body {
   margin: 0;
@@ -63,14 +56,34 @@ a:hover {
   text-decoration: underline;
 }
 
-select {
+/* 共通フォーム部品 */
+
+.field select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   color: var(--text-main);
   background: var(--panel);
   border: 1px solid var(--border);
+  padding: 8px 10px;
+  border-radius: 8px;
 }
 
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+textarea {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-main);
+}
 
-/* ===== ヘッダー / メインレイアウト ===== */
+/* =========================
+   ヘッダー / メインレイアウト
+   ========================= */
 
 .app-header {
   display: flex;
@@ -85,6 +98,7 @@ select {
   font-weight: 600;
   font-size: 18px;
 }
+
 .app-subtitle {
   font-size: 12px;
   color: var(--text-muted);
@@ -103,7 +117,9 @@ select {
   padding: 16px 20px;
 }
 
-/* ===== 2ペインレイアウト ===== */
+/* =========================
+   2ペインレイアウト（トップ）
+   ========================= */
 
 .logs-layout {
   display: grid;
@@ -111,21 +127,23 @@ select {
   gap: 16px;
 }
 
-/* モバイルでは1カラムに落とす */
+/* モバイルでは1カラム */
 @media (max-width: 900px) {
   .logs-layout {
     grid-template-columns: 1fr;
   }
 }
 
-/* ===== カード・ボタンなど ===== */
+/* =========================
+   カード・ボタンなど共通
+   ========================= */
 
 .card {
   background: var(--card-bg);
   border-radius: 12px;
   border: 1px solid var(--border);
   padding: 12px 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 .btn-accent {
@@ -156,56 +174,156 @@ select {
   background: var(--panel);
 }
 
-/* ===== 左ペイン ===== */
+/* =========================
+   左ペイン（検索・一覧）
+   ========================= */
 
 .logs-pane-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 16px 16px 18px;
 }
 
-.logs-filters {
+/* ヘッダー（タイトル＋右上ボタン） */
+
+.logs-pane-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
+  margin-bottom: 10px;
+}
+
+.logs-pane-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.logs-pane-subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.logs-pane-header-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* 絞り込みフォーム */
+
+.logs-filters {
+  padding: 10px 10px 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 96%, #000000);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  margin-bottom: 6px;
 }
 
 .filters-form .filters-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 12px;
+  gap: 8px 10px;
 }
+
 .filters-block {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  min-width: 140px;
+  min-width: 120px;
+  flex: 1 1 120px;
 }
+
+.filters-block-wide {
+  flex-basis: 100%;
+}
+
 .filters-block label {
   font-size: 11px;
   color: var(--text-muted);
 }
+
 .filters-block input[type="text"],
 .filters-block input[type="search"],
 .filters-block input[type="email"],
 .filters-block select {
-  padding: 4px 6px;
+  padding: 5px 8px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--panel);
-  font-size: 13px;
+  font-size: 12px;
 }
+
+/* 「適用」ボタンのセルだけ下端を揃える */
 
 .filters-submit {
   align-self: flex-end;
 }
 
-.filters-actions {
-  display: flex;
-  gap: 8px;
+.filters-apply-button {
+  width: 100%;
+  padding-inline: 10px;
 }
 
-/* ===== ログカード ===== */
+/* 一覧エリア（スクロール） */
+
+.logs-list-container {
+  margin-top: 4px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 98%, #000000);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  padding: 8px 8px 10px;
+  max-height: calc(100vh - 220px); /* 画面からはみ出しにくくする */
+  overflow-y: auto;
+}
+
+/* ピン留め / 通常ログ */
+
+.logs-pinned,
+.logs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.logs-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+  margin: 2px 0 4px;
+}
+
+.logs-section-header--compact {
+  margin-top: 4px;
+}
+
+.logs-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-sub);
+}
+
+.logs-section-caption {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* 「ログが0件」のときのメッセージ */
+
+.logs-empty-hint {
+  padding: 12px 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 95%, #000000);
+  border: 1px dashed color-mix(in srgb, var(--border) 60%, transparent);
+  font-size: 12px;
+}
+
+
+/* ログカード */
 
 .logs-pinned h2 {
   font-size: 13px;
@@ -217,7 +335,7 @@ select {
 .logs-pinned {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 16px;
 }
 
 .log-card {
@@ -227,26 +345,29 @@ select {
   background: var(--panel);
   cursor: pointer;
 }
+
 .log-card.is-active {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(64,80,180,0.3);
+  box-shadow: 0 0 0 1px rgba(64, 80, 180, 0.3);
 }
+
 .log-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .log-card-title {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-main);
 }
+
 .log-card-memo {
   font-size: 11px;
   color: var(--text-muted);
   margin-top: 2px;
 }
-
 
 .pin-button {
   border: none;
@@ -261,12 +382,16 @@ select {
   justify-content: space-between;
   align-items: center;
   margin-top: 4px;
+  font-size: 10px;
+  color: var(--text-muted);
 }
+
 .log-card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
 }
+
 .tag-chip {
   background: var(--chip-bg);
   color: var(--text-sub);
@@ -274,6 +399,7 @@ select {
   padding: 2px 6px;
   font-size: 11px;
 }
+
 .category-pill {
   background: transparent;
   color: var(--text-muted);
@@ -288,48 +414,92 @@ select {
   color: var(--text-muted);
 }
 
-/* ===== 右ペイン（詳細） ===== */
+/* =========================
+   右ペイン（詳細カード）
+   ========================= */
 
 .logs-pane-detail {
   min-height: 200px;
+}
+
+/* トップ右ペインのカード本体 */
+.log-detail-card {
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  padding: 20px 24px 24px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ログ未選択時の空状態 */
+.log-detail-empty {
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  padding: 32px 28px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* 詳細ヘッダー */
+
+.log-detail-header {
+  margin-bottom: 12px;
 }
 
 .log-detail-header h1 {
   margin: 0 0 4px;
   font-size: 18px;
 }
+
 .log-detail-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   font-size: 11px;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
+
 .log-detail-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
+
+/* 詳細本文 */
+
 .log-detail-body h2 {
   margin-top: 12px;
   margin-bottom: 4px;
   font-size: 14px;
 }
+
+.hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* コードブロック */
+
 .code-block {
   position: relative;
-  background: color-mix(in srgb, var(--panel) 90%, #000000); /* ライト→薄灰、ダーク→濃灰 */
+  background: color-mix(in srgb, var(--panel) 90%, #000000);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px;
 }
+
 .code-block pre {
   margin: 0;
   font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
   font-size: 13px;
   white-space: pre-wrap;
 }
+
 .code-block .btn-accent {
   position: absolute;
   top: -6px;
@@ -337,20 +507,26 @@ select {
   border-radius: 16px;
 }
 
+/* 画像サムネイル */
 
 .image-strip {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
+
 .log-image-thumb {
+  max-width: 200px;
+  max-height: 150px;
   border-radius: 6px;
   border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
-.hint {
-  font-size: 11px;
-  color: var(--text-muted);
+.log-image-thumb:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .log-detail-actions {
@@ -359,21 +535,9 @@ select {
   gap: 8px;
 }
 
-/* ===== 画像サムネ ===== */
-
-.log-image-thumb {
-  max-width: 200px;
-  max-height: 150px;
-  cursor: pointer;
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-}
-
-.log-image-thumb:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-}
-
-/* ===== 画像モーダル ===== */
+/* =========================
+   画像モーダル
+   ========================= */
 
 .image-modal[hidden] {
   display: none;
@@ -391,14 +555,12 @@ select {
 .image-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .image-modal-content {
   position: relative;
   z-index: 1;
-  max-width: 90vw;
-  max-height: 90vh;
   display: flex;
   flex-direction: column;
   padding: 12px 12px 16px;
@@ -413,21 +575,22 @@ select {
   align-items: center;
   max-width: 88vw;
   max-height: 80vh;
-  overflow: hidden;           /* ← スクロールバーを出さない */
+  overflow: hidden;
 }
 
 .image-modal-image {
   max-width: 100%;
-  max-height: 80vh;           /* 画面高さの8割に収まるよう縮小 */
+  max-height: 80vh;
   height: auto;
   width: auto;
-  object-fit: contain;        /* 画像全体を見えるようにフィット */
+  object-fit: contain;
 }
 
-/* ×ボタン */
+/* × ボタン */
+
 .image-modal-close {
   position: absolute;
-  top: -10px;      /* カードの外にちょっと浮かせる */
+  top: -10px;
   right: -10px;
   width: 28px;
   height: 28px;
@@ -442,26 +605,31 @@ select {
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .image-modal-close:hover {
   transform: translateY(-1px);
 }
 
-/* モーダル表示中は背景のスクロールを止める */
+/* モーダル表示中は背景スクロールを止める */
+
 body.is-modal-open {
   overflow: hidden;
 }
 
-/* ===== 空状態 ===== */
+/* =========================
+   空状態（共通）
+   ========================= */
 
 .empty-state {
   font-size: 13px;
   color: var(--text-sub);
 }
 
-/* ===== テーマスイッチ ===== */
+/* =========================
+   テーマスイッチ
+   ========================= */
 
 .theme-switch {
   display: inline-flex;
@@ -471,6 +639,7 @@ body.is-modal-open {
   border-radius: 999px;
   padding: 4px;
 }
+
 .theme-switch button {
   appearance: none;
   border: 1px solid transparent;
@@ -481,15 +650,19 @@ body.is-modal-open {
   font-size: 11px;
   cursor: pointer;
 }
+
 .theme-switch button[aria-pressed="true"] {
   background: var(--accent);
   color: #fff;
 }
+
 .theme-switch button:hover {
   filter: brightness(0.97);
 }
 
-/* ===== フラッシュ ===== */
+/* =========================
+   フラッシュメッセージ
+   ========================= */
 
 .flash {
   padding: 6px 10px;
@@ -497,16 +670,20 @@ body.is-modal-open {
   font-size: 12px;
   margin-bottom: 8px;
 }
+
 .flash-notice {
   background: #e6f4ea;
   color: #1e6e3c;
 }
+
 .flash-alert {
   background: #fdecea;
   color: #b3261e;
 }
 
-/* カテゴリ管理 */
+/* =========================
+   カテゴリ管理
+   ========================= */
 
 .categories-layout {
   display: flex;
@@ -526,12 +703,11 @@ body.is-modal-open {
   margin-bottom: 8px;
 }
 
-.categories-form input[type="text"] {
+.categories-form input[type="text"],
+.category-form select {
   width: 100%;
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--panel);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .categories-table {
@@ -553,4 +729,89 @@ body.is-modal-open {
 
 .categories-actions .btn-subtle {
   margin-left: 4px;
+}
+
+/* =========================
+   ページレイアウト（new / edit）
+   ========================= */
+
+.page-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 24px 40px;
+}
+
+.page-header {
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-size: 24px;
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* =========================
+   ログフォーム（new / edit）
+   ========================= */
+
+.log-form-wrapper {
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  padding: 20px 32px 24px;
+}
+
+/* form_with に class="log-form" を付けている想定 */
+.log-form .field {
+  margin-bottom: 16px;
+}
+
+.log-form .field:last-of-type {
+  margin-bottom: 0;
+}
+
+.log-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.log-form .hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ログフォーム内の入力幅 */
+
+.log-form input[type="text"],
+.log-form textarea,
+.log-form select {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* テキストエリアの高さ */
+
+.log-form textarea {
+  min-height: 80px;
+}
+
+.log-form textarea#log_code {
+  min-height: 140px;
+}
+
+/* ボタン並び */
+
+.log-form .actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
 }

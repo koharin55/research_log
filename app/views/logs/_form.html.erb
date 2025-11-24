@@ -1,5 +1,5 @@
 <%= form_with model: @log,
-              html: { class: "js-log-form",
+              html: { class: "log-form js-log-form",
                       data: { existing_images_count: @log.images.size } } do |f| %>
 
   <% if @log.errors.any? %>
@@ -66,10 +66,10 @@
   </div>
 
   <div class="field">
-  <%= f.label :memo, "ひとことメモ" %>
-  <%= f.text_area :memo, placeholder: "例）◯◯案件で使用。次回は△△も自動化したい" %>
-  <p class="hint">あとで見返すための一行メモやアイディアを書いておけます。</p>
-</div>
+    <%= f.label :memo, "ひとことメモ" %>
+    <%= f.text_area :memo, rows: 2 %>
+    <p class="hint">あとで見返すための一行メモやアイデアを書いておけます。</p>
+  </div>
 
   <div class="actions">
     <%= f.submit class: "btn-accent" %>
