@@ -19,25 +19,43 @@
     <div class="logs-filters">
       <%= form_with url: logs_path, method: :get, local: true, class: "filters-form" do |f| %>
         <div class="filters-row">
+          <!-- 🔍 キーワード -->
           <div class="filters-block filters-block-wide">
             <%= f.label :q, "検索" %>
             <%= f.search_field :q,
-                  value: params[:q],
-                  placeholder: "キーワード（タイトル / 本文 / コード）" %>
+                  value: @keyword || params[:q],
+                  placeholder: "キーワード（タイトル / メモ / コード）" %>
+
+            <div class="filters-keyword-mode">
+              <span class="filters-keyword-mode-label">検索モード</span>
+              <div class="filters-keyword-mode-options">
+                <label class="filters-keyword-mode-option">
+                  <%= f.radio_button :keyword_mode, "and",
+                        checked: (@keyword_mode == "and") %>
+                  <span>AND（すべて含む）</span>
+                </label>
+                <label class="filters-keyword-mode-option">
+                  <%= f.radio_button :keyword_mode, "or",
+                        checked: (@keyword_mode == "or") %>
+                  <span>OR（どれか含む）</span>
+                </label>
+              </div>
+            </div>
           </div>
 
+          <!-- 🏷 タグ（複数選択） -->
           <div class="filters-block">
-            <%= label_tag :tag, "タグ" %>
-            <%= text_field_tag :tag, params[:tag],
-                  list: "tag-suggestions",
-                  placeholder: "例）rails, vlookup など" %>
-            <datalist id="tag-suggestions">
-              <% @tag_suggestions.each do |tag| %>
-                <option value="<%= tag.name %>"></option>
-              <% end %>
-            </datalist>
+            <%= f.label :tag_ids, "タグ（複数選択可）" %>
+            <%= f.collection_select :tag_ids,
+                  @tag_suggestions, :id, :name,
+                  { include_hidden: false, selected: @selected_tag_ids },
+                  { multiple: true, size: 5 } %>
+            <p class="filters-help">
+              Ctrl / Cmd + クリックで複数選択できます。
+            </p>
           </div>
 
+          <!-- 📂 カテゴリ -->
           <div class="filters-block">
             <%= f.label :category_id, "カテゴリ" %>
             <%= f.collection_select :category_id,
@@ -45,6 +63,7 @@
                   { include_blank: "すべて" } %>
           </div>
 
+          <!-- ↕ 並び順 -->
           <div class="filters-block">
             <%= f.label :sort, "並び順" %>
             <%= f.select :sort,
@@ -53,6 +72,7 @@
                   { selected: params[:sort] || "recent" } %>
           </div>
 
+          <!-- ▶ 適用ボタン -->
           <div class="filters-block filters-submit">
             <%= f.label :apply, "　" %>
             <%= f.submit "適用", class: "btn-accent filters-apply-button" %>
@@ -95,7 +115,6 @@
       </div>
     <% end %>
   </section>
-
 
   <!-- 右ペイン：詳細 -->
   <section class="logs-pane-detail">

@@ -7,8 +7,16 @@ class LogsController < ApplicationController
     @categories      = current_user.categories.order(:name)
     @tag_suggestions = Tag.order(:name) # まずは全タグでOK（必要があれば user スコープに変える）
 
+    # 検索フォームの状態保持用インスタンス変数
+    @keyword      = params[:q]
+    @keyword_mode = params[:keyword_mode].presence_in(%w[and or]) || "and"
+    @selected_category_id = params[:category_id]
+    @selected_tag_ids     = Array(params[:tag_ids]).reject(&:blank?)
+    @sort                 = params[:sort].presence || "updated"
+
     base = current_user.logs
                        .includes(:category, :tags)
+
     base = apply_filters(base)
 
     @pinned_logs = base.where(pinned: true)
@@ -53,7 +61,7 @@ class LogsController < ApplicationController
     end
 
     if @log.update(log_params)
-      attach_images(@log)           # ← 新規作成時もここで追加
+      attach_images(@log) # ← 更新時もここで追加
       assign_tags(@log)
       redirect_to logs_path(selected_id: @log.id), notice: "ログを更新しました。"
     else
@@ -88,19 +96,22 @@ class LogsController < ApplicationController
 
   # 検索・フィルタ・ソートの適用
   def apply_filters(scope)
-    # キーワード検索（タイトル/本文/コード）
+    # キーワード検索（タイトル / メモ / コード）
     if params[:q].present?
-      q = "%#{params[:q]}%"
-      scope = scope.where("title LIKE :q OR body LIKE :q OR code LIKE :q", q: q)
+      scope = scope.keyword_search(params[:q], mode: @keyword_mode)
     end
 
     # カテゴリフィルタ
     if params[:category_id].present?
-      scope = scope.where(category_id: params[:category_id])
+      scope = scope.by_category(params[:category_id])
     end
 
-    # タグで絞り込み（単一タグ想定。拡張はあとでOK）
-    if params[:tag].present?
+    # タグで絞り込み
+    if params[:tag_ids].present?
+      # 複数タグ指定（すべて含むログのみ）
+      scope = scope.with_all_tags(params[:tag_ids])
+    elsif params[:tag].present?
+      # 旧仕様：単一タグ名での絞り込み（後方互換）
       scope = scope.joins(:tags).where(tags: { name: params[:tag] }).distinct
     end
 
@@ -115,7 +126,7 @@ class LogsController < ApplicationController
 
   # ストロングパラメーター
   def log_params
-    permitted = params.require(:log).permit(
+    params.require(:log).permit(
       :title,
       :body,
       :code,
