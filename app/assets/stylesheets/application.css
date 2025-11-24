@@ -245,6 +245,50 @@ textarea {
   font-size: 11px;
   color: var(--text-muted);
 }
+/* 検索モード（AND / OR）の表示 */
+
+.filters-keyword-mode {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filters-keyword-mode-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.filters-keyword-mode-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filters-keyword-mode-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--text-sub);
+}
+
+.filters-keyword-mode-option input[type="radio"] {
+  margin: 0;
+  accent-color: var(--accent); /* 対応ブラウザではラジオの色もアクセントに */
+}
+
+/* フィルタ内の小さいヒントテキスト */
+
+.filters-help {
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
 
 .filters-block input[type="text"],
 .filters-block input[type="search"],
