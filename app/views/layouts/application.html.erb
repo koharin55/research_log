@@ -12,7 +12,17 @@
   <body>
     <header class="app-header">
       <div class="app-logo">
-        Re:Search <span class="app-subtitle">-知識を、再発見する。</span>
+        <%= link_to root_path, class: "app-logo-link" do %>
+          <span class="app-logo-image app-logo-image--light">
+            <%= image_tag "logo_research_light.png", alt: "Re:Search -知識を、再発見する。" %>
+          </span>
+          <span class="app-logo-image app-logo-image--dark">
+            <%= image_tag "logo_research_dark.png", alt: "Re:Search -知識を、再発見する。" %>
+          </span>
+          <span class="app-logo-text sr-only">
+            Re:Search -知識を、再発見する。
+          </span>
+        <% end %>
       </div>
 
       <div class="app-header-right">
@@ -31,7 +41,7 @@
           </div>
         <% end %>
 
-        <!-- テーマ切替：☀️ライト / 🌙ダーク / 🖥️自動 -->
+        <!-- テーマ切替：☀️ライト / 🌙ダーク / 🖥️OS設定 -->
         <div class="theme-switch" role="group" aria-label="テーマ切替">
           <button type="button" data-mode="light" title="ライト">
             ☀️ ライト
@@ -40,7 +50,7 @@
             🌙 ダーク
           </button>
           <button type="button" data-mode="auto" title="自動（OS連動）">
-            🖥️ 自動
+            🖥️ OS設定
           </button>
         </div>
       </div>

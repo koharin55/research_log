@@ -101,20 +101,56 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 12px 40px;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
 }
 
 .app-logo {
-  font-weight: 600;
-  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
-.app-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-left: 4px;
+.app-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.app-logo-image img {
+  display: block;
+  height: 36px;        /* 必要なら 20〜28px くらいで調整 */
+  width: auto;
+}
+
+/* 画面には出さずスクリーンリーダーだけに読ませたいテキスト用 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* デフォルトは light 用を表示、dark 用を隠す */
+.app-logo-image--light {
+  display: inline-block;
+}
+.app-logo-image--dark {
+  display: none;
+}
+
+/* ダークテーマ時は逆にする */
+:root[data-theme="dark"] .app-logo-image--light {
+  display: none;
+}
+:root[data-theme="dark"] .app-logo-image--dark {
+  display: inline-block;
 }
 
 .app-header-right {
@@ -528,11 +564,59 @@ textarea {
 
 /* 詳細本文 */
 
+.log-detail-body > section + section {
+  margin-top: 28px;
+}
+
 .log-detail-body h2 {
   margin-top: 12px;
   margin-bottom: 4px;
   font-size: 14px;
 }
+
+/* 詳細セクション（説明 / コード / 画像 / ひとことメモ） */
+
+.log-detail-section {
+  margin-bottom: 18px;
+}
+
+.log-detail-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.log-detail-section h2 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-sub);
+}
+
+.log-detail-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-sub);
+  margin: 20px 0 6px;
+  padding-left: 2px;
+}
+
+
+.section-body {
+  background: color-mix(in srgb, var(--panel) 95%, #000000);
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  border-radius: 10px;
+  padding: 0px 12px;
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+/* コード・画像は少しだけ余白を広めにしておく */
+
+.section-body--code,
+.section-body--images {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 
 .hint {
   font-size: 11px;
@@ -563,6 +647,12 @@ textarea {
   border-radius: 16px;
 }
 
+/* ひとことメモ */
+
+.log-detail-memo {
+  padding-bottom: 16px;
+}
+
 /* 画像サムネイル */
 
 .image-strip {
@@ -572,17 +662,32 @@ textarea {
 }
 
 .log-image-thumb {
-  max-width: 200px;
-  max-height: 150px;
+  /* サムネの「枠」サイズを固定 */
+  width: 200px;
+  height: 150px;
+
+  /* 枠の中で元の縦横比を保ったまま表示 */
+  object-fit: contain;
+  object-position: center;
+
+  /* 背景色を付けて、余白部分が透けないように */
+  background: var(--card-bg);
+
   border-radius: 6px;
   border: 1px solid var(--border);
   cursor: pointer;
+  display: block;
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
 .log-image-thumb:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.log-image-thumb-wrapper:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .log-detail-actions {

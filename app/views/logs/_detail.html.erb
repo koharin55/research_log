@@ -1,3 +1,4 @@
+<!-- app/views/logs/_detail.html.erb -->
 <div class="log-detail">
   <header class="log-detail-header">
     <h1><%= log.title %></h1>
@@ -20,59 +21,77 @@
 
   <section class="log-detail-body">
     <% if log.body.present? %>
-      <h2>メモ</h2>
-      <div class="log-body-text">
-        <%= simple_format log.body %>
-      </div>
+      <section class="log-detail-section">
+        <h2 class="log-detail-section-title">説明</h2>
+        <div class="section-body">
+          <%= simple_format(log.body) %>
+        </div>
+      </section>
     <% end %>
 
     <% if log.code.present? %>
-      <h2>コード</h2>
-      <div class="code-block">
-        <pre><code><%= log.code %></code></pre>
-        <button
-          class="btn-accent js-copy-code"
-          data-log-id="<%= log.id %>">
-          Copy
-        </button>
-      </div>
-      <p class="hint">Copyボタンでコードがクリップボードにコピーされます。</p>
+      <section class="log-detail-section">
+        <h2 class="log-detail-section-title">コード例</h2>
+        <div class="section-body section-body--code">
+          <div class="code-block">
+            <pre><code><%= log.code %></code></pre>
+            <button
+              class="btn-accent js-copy-code"
+              data-log-id="<%= log.id %>">
+              Copy
+            </button>
+          </div>
+          <p class="hint">
+            Copyボタンでコードがクリップボードにコピーされます。
+          </p>
+        </div>
+      </section>
     <% end %>
 
     <% if log.images.attached? %>
-      <h2>画像（<%= log.images.size %> / 5）</h2>
-      <div class="image-strip">
-        <% log.images.each do |img| %>
-          <%= image_tag img.variant(resize_to_limit: [200, 150]),
-                class: "log-image-thumb js-log-image",
-                data: { full_url: url_for(img) } %>
-        <% end %>
-      </div>
-      <p class="hint">画像をクリックすると大きく表示できます。<br>
-        もっと拡大して見たい場合は画像を右クリックして「新しいタブで画像を開く」を選択してください。
-      </p>
-
+      <section class="log-detail-section">
+        <h2 class="log-detail-section-title">
+          画像（<%= log.images.size %> / 5）
+        </h2>
+        <div class="section-body section-body--images">
+          <div class="image-strip">
+            <% log.images.each do |img| %>
+              <%= image_tag img.variant(resize_to_limit: [200, 150]),
+                    class: "log-image-thumb js-log-image",
+                    data: { full_url: url_for(img) } %>
+            <% end %>
+          </div>
+          <p class="hint">
+            画像をクリックすると大きく表示できます。<br>
+            もっと拡大して見たい場合は画像を右クリックして
+            「新しいタブで画像を開く」を選択してください。
+          </p>
+        </div>
+      </section>
     <% end %>
 
     <% if log.memo.present? %>
-      <h2>ひとことメモ</h2>
-      <p><%= simple_format log.memo %></p>
+      <section class="log-detail-section">
+        <h2 class="log-detail-section-title">ひとことメモ</h2>
+        <div class="section-body">
+          <%= simple_format(log.memo) %>
+        </div>
+      </section>
     <% end %>
   </section>
 
-  <%# 共通のモーダルDOM：画像拡大表示 %>
+  <!-- 共通のモーダルDOM：画像拡大表示 -->
   <div class="image-modal" data-image-modal hidden>
-  <div class="image-modal-backdrop"></div>
-  <div class="image-modal-content card">
-    <button type="button" class="image-modal-close" aria-label="閉じる">
-      ×
-    </button>
-    <div class="image-modal-body">
-      <img src="" alt="" class="image-modal-image" />
+    <div class="image-modal-backdrop"></div>
+    <div class="image-modal-content card">
+      <button type="button" class="image-modal-close" aria-label="閉じる">
+        ×
+      </button>
+      <div class="image-modal-body">
+        <img src="" alt="" class="image-modal-image" />
+      </div>
     </div>
   </div>
-</div>
-
 
   <footer class="log-detail-actions">
     <%= link_to "編集", edit_log_path(log), class: "btn-accent" %>
