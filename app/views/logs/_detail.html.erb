@@ -24,7 +24,7 @@
       <section class="log-detail-section">
         <h2 class="log-detail-section-title">説明</h2>
         <div class="section-body">
-          <%= simple_format(log.body) %>
+          <%= log.body %>
         </div>
       </section>
     <% end %>
@@ -74,7 +74,7 @@
       <section class="log-detail-section">
         <h2 class="log-detail-section-title">ひとことメモ</h2>
         <div class="section-body">
-          <%= simple_format(log.memo) %>
+          <%= log.memo %>
         </div>
       </section>
     <% end %>

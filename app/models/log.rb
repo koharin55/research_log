@@ -6,6 +6,7 @@
 #  body        :text(65535)
 #  code        :text(65535)
 #  copy_count  :integer          default(0), not null
+#  memo        :text(65535)
 #  pinned      :boolean          default(FALSE), not null
 #  title       :string(255)      not null
 #  created_at  :datetime         not null
@@ -32,8 +33,11 @@ class Log < ApplicationRecord
   has_many :log_tags, dependent: :destroy
   has_many :tags, through: :log_tags
 
+  has_rich_text :body
+  has_rich_text :memo
+
   validates :title, presence: true, length: { maximum: 100 }
-  validates :memo,  length: { maximum: 200 }, allow_blank: true
+  # validates :memo,  length: { maximum: 200 }, allow_blank: true
   validate :images_count_within_limit
 
   # --- 並び順スコープ ---

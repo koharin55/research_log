@@ -14,7 +14,7 @@
     
     <% if log.memo.present? %>
       <div class="log-card-memo">
-        <%= truncate(log.memo, length: 30) %>
+        <%= truncate(log.memo.to_plain_text, length: 30) %>
       </div>
     <% end %>
 
