@@ -35,7 +35,8 @@
 
   <div class="field">
     <%= f.label :body, "説明" %>
-    <%= f.text_area :body, rows: 6 %>
+    <%= f.rich_text_area :body, placeholder: "ここに説明を書くことができます…" %>
+
   </div>
 
   <div class="field">
@@ -67,8 +68,7 @@
 
   <div class="field">
     <%= f.label :memo, "ひとことメモ" %>
-    <%= f.text_area :memo, rows: 2 %>
-    <p class="hint">あとで見返すための一行メモやアイデアを書いておけます。</p>
+    <%= f.rich_text_area :memo, placeholder: "ひとことメモを入力…" %>
   </div>
 
   <div class="actions">
