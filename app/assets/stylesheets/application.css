@@ -19,6 +19,7 @@
   --chip-bg:   #E6E8F4;  /* タグの背景色 */
   --modal-close-bg: rgba(0, 0, 0, 0.55);  /* 画像拡大時の × 背景 */
   --modal-close-color: #fff;              /* 画像拡大時の × 文字色 */
+  
 }
 
 :root[data-theme="dark"] {  /* ダークモード */
@@ -104,6 +105,9 @@ textarea {
   padding: 12px 40px;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
+  position: sticky;   /* ヘッダー部分を固定 */
+  top: 0;
+  z-index: 200;       /* メインより前面に */
 }
 
 .app-logo {
@@ -437,7 +441,15 @@ textarea {
   border: 1px solid transparent;
   background: var(--panel);
   cursor: pointer;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, border-color 0.1s ease-out;
 }
+
+.log-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
+}
+
 
 .log-card.is-active {
   border-color: var(--accent);
