@@ -1,16 +1,18 @@
-<% active = defined?(selected_log) && selected_log.present? && selected_log.id == log.id %>
+<% active   = defined?(selected_log) && selected_log.present? && selected_log.id == log.id %>
+<% log_url = logs_path(
+      selected_id: log.id,
+      q:          params[:q],
+      tag:        params[:tag],
+      category_id: params[:category_id],
+      sort:       params[:sort]
+    ) %>
 
-<div class="log-card <%= 'is-active' if active %>">
+<div class="log-card <%= 'is-active' if active %>"
+     data-log-url="<%= log_url %>"
+     role="link"
+     tabindex="0">
   <div class="log-card-header">
-    <%= link_to log.title,
-          logs_path(
-            selected_id: log.id,
-            q:          params[:q],
-            tag:        params[:tag],
-            category_id: params[:category_id],
-            sort:       params[:sort]
-          ),
-          class: "log-card-title" %>
+    <%= link_to log.title, log_url, class: "log-card-title" %>
     
     <% if log.memo.present? %>
       <div class="log-card-memo">
