@@ -22,3 +22,8 @@ ja:
       signed_up_but_unconfirmed: "確認メールを送信しました。メール内のリンクから本登録を完了してください。"
       updated: "アカウント情報を更新しました。"
       destroyed: "アカウントを削除しました。またのご利用をお待ちしています。"
+
+    failure:
+      unauthenticated: "続けるにはログインしてください。"
+      user:
+        unauthenticated: "続けるにはログインしてください。"

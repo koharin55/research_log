@@ -904,6 +904,235 @@ body.is-modal-open {
 }
 
 /* =========================
+   Devise 認証ページ
+   ========================= */
+
+.auth-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.auth-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 32px;
+  background: #e9f0ff;
+  border: 1px solid color-mix(in srgb, #5c7dff 35%, var(--border));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="dark"] .auth-hero {
+  background: #0d1324;
+  border-color: color-mix(in srgb, #6f8bff 55%, var(--border));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.auth-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  mix-blend-mode: lighten;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop stop-color='%23b7c8ff' offset='0%'/><stop stop-color='%239bb4ff' offset='40%'/><stop stop-color='%2373a0ff' offset='100%'/></linearGradient></defs><rect fill='url(%23g)' opacity='0.25' width='1400' height='900'/><g fill='none' stroke='%2382a0ff' stroke-width='1.6' opacity='0.7'><path d='M40 280 C240 180 420 260 620 180 C820 100 1000 220 1180 180 C1280 150 1360 80 1400 20'/><path d='M-20 520 C180 420 360 500 560 420 C760 340 940 460 1120 420 C1220 390 1300 320 1400 280'/><path d='M0 760 C200 660 380 740 580 660 C780 580 960 700 1140 660 C1240 630 1320 560 1420 520'/></g><g fill='%235d7bff' opacity='0.22'><circle cx='180' cy='160' r='12'/><circle cx='380' cy='90' r='10'/><circle cx='920' cy='180' r='14'/><circle cx='1180' cy='120' r='11'/><circle cx='320' cy='640' r='13'/><circle cx='980' cy='520' r='12'/><circle cx='1240' cy='660' r='10'/></g><g fill='%230b1232' opacity='0.18'><rect x='1040' y='340' width='120' height='10' rx='5'/><rect x='1060' y='360' width='90' height='10' rx='5'/><rect x='1080' y='380' width='70' height='10' rx='5'/></g></svg>");
+}
+
+:root[data-theme="dark"] .auth-hero::before {
+  opacity: 0.24;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900'><defs><linearGradient id='gd' x1='0%' y1='0%' x2='100%' y2='100%'><stop stop-color='%2318294f' offset='0%'/><stop stop-color='%23102145' offset='45%'/><stop stop-color='%230c1a3a' offset='100%'/></linearGradient></defs><rect fill='url(%23gd)' opacity='0.45' width='1400' height='900'/><g fill='none' stroke='%234e6bff' stroke-width='1.4' opacity='0.55'><path d='M40 240 C240 140 420 220 620 140 C820 60 1000 180 1180 140 C1280 110 1360 40 1400 -20'/><path d='M-20 500 C180 400 360 480 560 400 C760 320 940 440 1120 400 C1220 370 1300 300 1400 260'/><path d='M0 760 C200 660 380 740 580 660 C780 580 960 700 1140 660 C1240 630 1320 560 1420 520'/></g><g fill='%235c8bff' opacity='0.32'><circle cx='200' cy='200' r='12'/><circle cx='380' cy='120' r='10'/><circle cx='920' cy='220' r='14'/><circle cx='1180' cy='160' r='11'/><circle cx='320' cy='660' r='13'/><circle cx='980' cy='540' r='12'/><circle cx='1240' cy='700' r='10'/></g><g fill='%23d9e3ff' opacity='0.18'><rect x='1040' y='360' width='120' height='10' rx='5'/><rect x='1060' y='380' width='90' height='10' rx='5'/><rect x='1080' y='400' width='70' height='10' rx='5'/></g></svg>");
+}
+
+.auth-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 60% at 20% 0%, color-mix(in srgb, #5c7dff 25%, transparent), transparent),
+    radial-gradient(70% 50% at 110% 30%, color-mix(in srgb, #7be0ff 30%, transparent), transparent);
+  pointer-events: none;
+}
+
+.auth-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  color: #1b2a6b;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 20px rgba(91, 110, 255, 0.18);
+  margin-left: auto;
+}
+
+:root[data-theme="dark"] .auth-badge {
+  background: #162040;
+  color: #e5ecff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.auth-logo-wide img {
+  height: 48px;
+  width: auto;
+}
+
+.auth-title {
+  margin: 20px 0 8px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.auth-title-sub {
+  display: block;
+  margin-top:12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.auth-lead {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+.auth-highlights {
+  margin: 10px 0 0;
+  padding-left: 28px;            /* 「・」の前にもインデントを入れる */
+  list-style: disc;
+  list-style-position: outside;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.auth-highlights--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px 12px;
+}
+
+.auth-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: color-mix(in srgb, var(--card-bg) 80%, var(--accent) 15%);
+  color: var(--text-sub);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.auth-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.auth-card {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.auth-card-caption {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.auth-form .field {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-form .field.inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+}
+
+.auth-form .auth-hint {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.auth-remember {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  justify-content: flex-start;
+  padding-left: 2px;
+}
+
+.auth-submit {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.auth-links {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.auth-links a {
+  color: var(--accent);
+}
+
+/* Right pane sizing tweaks */
+.auth-card {
+  font-size: 13px;
+}
+
+.auth-card .field input {
+  font-size: 13px;
+}
+
+/* =========================
    ページレイアウト（new / edit）
    ========================= */
 

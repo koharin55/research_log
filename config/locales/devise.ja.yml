@@ -1,0 +1,69 @@
+ja:
+  errors:
+    messages:
+      expired: "期限が切れています。新しくリクエストしてください。"
+      not_found: "見つかりません。"
+      already_confirmed: "すでに確認済みです。ログインしてください。"
+      confirmation_period_expired: "確認期限が切れました。%{period}以内に確認する必要があります。新しくリクエストしてください。"
+      no_token: "認証トークンが見つかりません。別のページからアクセスしていませんか？"
+      not_locked: "このアカウントはロックされていません。"
+      not_saved:
+        one: "1件のエラーにより、この%{resource}を保存できませんでした。"
+        other: "%{count}件のエラーにより、この%{resource}を保存できませんでした。"
+
+  devise:
+    failure:
+      already_authenticated: "すでにログインしています。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "メールアドレスの確認が完了していません。確認メールをチェックしてください。"
+      locked: "アカウントはロックされています。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      invalid_token: "認証トークンが不正です。"
+      timeout: "一定時間操作がなかったため、ログアウトしました。もう一度ログインしてください。"
+      inactive: "このアカウントは現在利用できません。"
+
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "すでにログアウト済みです。"
+
+    registrations:
+      signed_up: "アカウント登録が完了しました。ようこそ Re:Search へ！"
+      updated: "アカウント情報を更新しました。"
+      destroyed: "アカウントを削除しました。またのご利用をお待ちしています。"
+      signed_up_but_unconfirmed: "確認メールを送信しました。メール内のリンクから登録を完了してください。"
+      signed_up_but_inactive: "アカウントは作成されましたが、まだ有効になっていません。"
+      signed_up_but_locked: "アカウントは作成されましたが、現在ロックされています。"
+
+    passwords:
+      send_instructions: "パスワード再設定の案内をメールで送信しました。"
+      updated: "パスワードを変更しました。ログインし直してください。"
+      updated_not_active: "パスワードを変更しました。"
+      send_paranoid_instructions: "登録されているメールアドレスがある場合は、パスワード再設定の案内を送信しました。"
+      no_token: "このページにはパスワード再設定メールのリンクからアクセスしてください。"
+
+    confirmations:
+      send_instructions: "確認メールを送信しました。メール内のリンクから登録を完了してください。"
+      send_paranoid_instructions: "メールアドレスが登録済みの場合は、確認メールを送信しました。"
+      confirmed: "メールアドレスを確認しました。ログインできます。"
+
+    unlocks:
+      send_instructions: "アカウントのロック解除方法をメールで送信しました。"
+      unlocked: "アカウントのロックを解除しました。ログインできます。"
+      send_paranoid_instructions: "登録済みのアカウントがある場合は、ロック解除メールを送信しました。"
+
+    omniauth_callbacks:
+      success: "%{kind} アカウントでログインしました。"
+      failure: "%{kind} アカウントでログインできませんでした。理由: \"%{reason}\""
+
+    mailer:
+      confirmation_instructions:
+        subject: "アカウントの確認手続きについて"
+      reset_password_instructions:
+        subject: "パスワード再設定のご案内"
+      unlock_instructions:
+        subject: "アカウントロック解除のご案内"
+      email_changed:
+        subject: "メールアドレス変更のお知らせ"
+      password_change:
+        subject: "パスワード変更のお知らせ"

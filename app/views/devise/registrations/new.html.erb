@@ -1,34 +1,67 @@
-<h2>Sign up</h2>
+<div class="page-main auth-page">
+  <section class="auth-hero card">
+    <div class="auth-hero-top">
+      <div class="auth-logo-wide">
+        <span class="app-logo-image app-logo-image--light">
+          <%= image_tag "logo_research_light.png", alt: "Re:Search" %>
+        </span>
+        <span class="app-logo-image app-logo-image--dark">
+          <%= image_tag "logo_research_dark.png", alt: "Re:Search" %>
+        </span>
+      </div>
+      <div class="auth-badge">学びをストックし、使いたいときにすぐに活用</div>
+    </div>
+    <h1 class="auth-title">
+      学びと活用の世界 に参加する
+      <span class="auth-title-sub">アカウントを作成して、学習内容を記録・整理し使っていきましょう</span>
+    </h1>
+    <ul class="auth-highlights auth-highlights--grid">
+      <li><strong>リッチテキスト</strong>と画像で記録</li>
+      <li><strong>タグ／カテゴリ</strong>で再利用導線を短縮</li>
+      <li><strong>ピン留め</strong>で「今日の再利用」をキープ</li>
+      <li><strong>ライト／ダーク</strong>で眼に優しく</li>
+    </ul>
+  </section>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <section class="auth-card card">
+    <header class="auth-card-header">
+      <h2>新規登録</h2>
+      <p class="auth-card-caption">ニックネームとメールアドレス、パスワードを入力してください。</p>
+    </header>
 
-  <div class="field">
-    <%= f.label :nickname, "ニックネーム" %><br />
-    <%= f.text_field :nickname, autofocus: true, required: true %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "auth-form" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="field">
+        <%= f.label :nickname, "ニックネーム" %>
+        <%= f.text_field :nickname, autofocus: true, required: true %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+      <div class="field">
+        <%= f.label :email, "メールアドレス" %>
+        <%= f.email_field :email, autocomplete: "email" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <div class="field">
+        <%= f.label :password, "パスワード" %>
+        <% if @minimum_password_length %>
+          <span class="auth-hint">（<%= @minimum_password_length %>文字以上）</span>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+      <div class="field">
+        <%= f.label :password_confirmation, "パスワード（確認）" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
 
-<%= render "devise/shared/links" %>
+      <div class="actions">
+        <%= f.submit "アカウントを作成", class: "btn-accent auth-submit" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </section>
+</div>

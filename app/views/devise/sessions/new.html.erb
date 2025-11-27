@@ -1,26 +1,59 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="page-main auth-page">
+  <section class="auth-hero card">
+    <div class="auth-hero-top">
+      <div class="auth-logo-wide">
+        <span class="app-logo-image app-logo-image--light">
+          <%= image_tag "logo_research_light.png", alt: "Re:Search" %>
+        </span>
+        <span class="app-logo-image app-logo-image--dark">
+          <%= image_tag "logo_research_dark.png", alt: "Re:Search" %>
+        </span>
+      </div>
+      <div class="auth-badge">学んだ内容を活用しながら、気づきをアップデート</div>
     </div>
-  <% end %>
+    <h1 class="auth-title">
+      ログインして使用する
+      <span class="auth-title-sub">日々学んだことをスマートに整理して、活用しながら学びを深めていきましょう</span>
+    </h1>
+    <ul class="auth-highlights auth-highlights--grid">
+      <li><strong>タグ／カテゴリ</strong>で一瞬検索</li>
+      <li><strong>Action Text</strong>でリッチに記録</li>
+      <li><strong>ピン留め</strong>で今日の使い回しをキープ</li>
+      <li><strong>ライト／ダーク</strong>で目に優しく</li>
+    </ul>
+  </section>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+  <section class="auth-card card">
+    <header class="auth-card-header">
+      <h2>ログイン</h2>
+      <p class="auth-card-caption">Re:Search を続けるにはメールアドレスとパスワードを入力してください。</p>
+    </header>
 
-<%= render "devise/shared/links" %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
+      <div class="field">
+        <%= f.label :email, "メールアドレス" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, "パスワード" %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field auth-remember inline">
+          <%= f.check_box :remember_me, id: "remember_me_checkbox" %>
+          <%= f.label :remember_me, "ログイン状態を保持する", for: "remember_me_checkbox" %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "ログイン", class: "btn-accent auth-submit" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <%= render "devise/shared/links" %>
+    </div>
+  </section>
+</div>
