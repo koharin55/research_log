@@ -4,11 +4,7 @@ class LogsController < ApplicationController
   # GET /logs
   # メイン画面：検索・フィルタ・ピン留め・詳細表示
   def index
-    @categories      = current_user.categories.order(:name)
-    @tag_suggestions = Tag.joins(:logs)
-                      .where(logs: { user_id: current_user.id })  # ユーザーのログに紐づくタグのみ
-                      .distinct
-                      .order(:name)
+    @categories = current_user.categories.order(:name)
 
     # 検索フォームの状態保持用インスタンス変数
     @keyword      = params[:q]
@@ -24,6 +20,15 @@ class LogsController < ApplicationController
 
     @pinned_logs = base.where(pinned: true)
     @other_logs  = base.where(pinned: false)
+    @pinned_count = @pinned_logs.to_a.size
+    @other_count  = @other_logs.to_a.size
+    @total_count  = @pinned_count + @other_count
+
+    # フィルタ後の結果に出現するタグのみを候補に表示
+    @tag_suggestions = Tag.joins(:logs)
+                      .merge(base.reorder(nil)) # drop ORDER BY from base to avoid DISTINCT clash
+                      .distinct
+                      .order(:name)
 
     @selected_log =
       if params[:selected_id].present?
@@ -112,7 +117,7 @@ class LogsController < ApplicationController
     # タグで絞り込み
     if params[:tag_ids].present?
       # 複数タグ指定（すべて含むログのみ）
-      scope = scope.with_all_tags(params[:tag_ids])
+      scope = scope.with_any_tags(params[:tag_ids])
     elsif params[:tag].present?
       # 旧仕様：単一タグ名での絞り込み（後方互換）
       scope = scope.joins(:tags).where(tags: { name: params[:tag] }).distinct

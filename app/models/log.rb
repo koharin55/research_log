@@ -108,6 +108,16 @@ scope :keyword_search, ->(query, mode: :and) {
       .having('COUNT(DISTINCT log_tags.tag_id) = ?', ids.size)
   }
 
+  # OR（いずれかのタグに合致）
+  scope :with_any_tags, ->(tag_ids) {
+    ids = Array(tag_ids).reject(&:blank?)
+    return all if ids.empty?
+
+    joins(:log_tags)
+      .where(log_tags: { tag_id: ids })
+      .distinct
+  }
+
   private
 
   def images_count_within_limit

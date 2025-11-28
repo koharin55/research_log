@@ -43,6 +43,14 @@
             </div>
           </div>
 
+          <!-- 📂 カテゴリ -->
+          <div class="filters-block">
+            <%= f.label :category_id, "カテゴリ" %>
+            <%= f.collection_select :category_id,
+                  @categories, :id, :name,
+                  { include_blank: "すべて", selected: @selected_category_id } %>
+          </div>
+
           <!-- 🏷 タグ（複数選択） -->
           <div class="filters-block">
             <%= f.label :tag_ids, "タグ（複数選択可）" %>
@@ -53,14 +61,6 @@
             <p class="filters-help">
               Ctrl / Cmd + クリックで複数選択できます。
             </p>
-          </div>
-
-          <!-- 📂 カテゴリ -->
-          <div class="filters-block">
-            <%= f.label :category_id, "カテゴリ" %>
-            <%= f.collection_select :category_id,
-                  @categories, :id, :name,
-                  { include_blank: "すべて" } %>
           </div>
 
           <!-- ↕ 並び順 -->
@@ -75,7 +75,8 @@
           <!-- ▶ 適用ボタン -->
           <div class="filters-block filters-submit">
             <%= f.label :apply, "　" %>
-            <%= f.submit "適用", class: "btn-accent filters-apply-button" %>
+            <%= f.submit "検索 / 適用", class: "btn-accent filters-apply-button" %>
+            <%= link_to "クリア", logs_path, class: "btn-subtle filters-clear-button" %>
           </div>
         </div>
       <% end %>
@@ -105,7 +106,7 @@
           <div class="logs-section-header logs-section-header--compact">
             <span class="logs-section-title">すべてのログ</span>
             <span class="logs-section-caption">
-              <%= @other_logs.size + @pinned_logs.size %> 件
+              <%= @total_count %> 件
             </span>
           </div>
           <% @other_logs.each do |log| %>
@@ -129,3 +130,6 @@
     <% end %>
   </section>
 </div>
+
+
+
