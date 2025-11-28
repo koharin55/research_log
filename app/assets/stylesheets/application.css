@@ -365,6 +365,30 @@ textarea {
   padding-inline: 10px;
 }
 
+.filters-clear-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.filters-clear-button:hover {
+  background: var(--panel);
+}
+
+.filters-clear-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* 一覧エリア（スクロール） */
 
 .logs-list-container {
@@ -853,55 +877,6 @@ body.is-modal-open {
   color: #b3261e;
 }
 
-/* =========================
-   カテゴリ管理
-   ========================= */
-
-.categories-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.categories-new h2,
-.categories-list h2 {
-  font-size: 14px;
-  margin-top: 0;
-  margin-bottom: 8px;
-  color: var(--text-sub);
-}
-
-.categories-form .field {
-  margin-bottom: 8px;
-}
-
-.categories-form input[type="text"],
-.category-form select {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.categories-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.categories-table th,
-.categories-table td {
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.categories-actions {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.categories-actions .btn-subtle {
-  margin-left: 4px;
-}
 
 /* =========================
    Devise 認証ページ
@@ -1007,13 +982,6 @@ body.is-modal-open {
   font-weight: 600;
 }
 
-.auth-lead {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: var(--text-sub);
-  line-height: 1.6;
-}
-
 .auth-highlights {
   margin: 10px 0 0;
   padding-left: 28px;            /* 「・」の前にもインデントを入れる */
@@ -1030,27 +998,6 @@ body.is-modal-open {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 8px 12px;
-}
-
-.auth-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  background: color-mix(in srgb, var(--card-bg) 80%, var(--accent) 15%);
-  color: var(--text-sub);
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.auth-pill-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .auth-card {
@@ -1242,4 +1189,222 @@ body.is-modal-open {
 /* プレースホルダっぽい薄いグレーだけ維持 */
 .log-form .trix-content:empty::before {
   color: var(--text-muted);
+}
+
+
+
+/* ===========================
+   Re:Search 共通ページレイアウト
+   =========================== */
+
+/* ページ全体のコンテナ（ヘッダー下から中央に寄せる） */
+.rs-page-container {
+  max-width: 1100px;
+  margin: 2.5rem auto 3rem;
+  padding: 0 1.5rem;
+}
+
+/* 白いカード（メインコンテンツ用） */
+.rs-page-card {
+  background: var(--surface-main, #fff);
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 30px rgba(15, 35, 80, 0.08);
+  padding: 2rem 2.5rem;
+}
+
+/* ページタイトル・サブタイトル */
+.rs-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.rs-page-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.78;
+  margin-bottom: 1.6rem;
+}
+
+/* 汎用フォームスタイル（Devise やカテゴリでも使う） */
+.rs-form-group {
+  margin-bottom: 1rem;
+}
+
+.rs-form-label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.rs-input-text,
+.rs-select,
+.rs-input-password {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle, #ccd3e2);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.9rem;
+  outline: none;
+  background: var(--surface-input, #fff);
+}
+
+.rs-input-text:focus,
+.rs-input-password:focus,
+.rs-select:focus {
+  border-color: var(--accent, #5b8def);
+  box-shadow: 0 0 0 2px rgba(91, 141, 239, 0.2);
+}
+
+/* メインボタン（既存のボタン色に合わせてOK） */
+.rs-button-primary {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: var(--accent, #4863f7);
+}
+
+.rs-button-primary:hover {
+  opacity: 0.92;
+}
+
+/* サブテキストリンク（ログイン/サインアップ切り替えなど） */
+.rs-auth-links {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.rs-auth-links a {
+  color: var(--link, #4863f7);
+}
+
+/* スマホ幅調整 */
+@media (max-width: 600px) {
+  .rs-page-container {
+    margin-top: 1.5rem;
+    padding: 0 0.9rem;
+  }
+
+  .rs-page-card {
+    padding: 1.5rem 1.4rem;
+  }
+}
+
+
+
+/* カテゴリページ専用のレイアウト補助 */
+
+.categories-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* エラー表示 */
+.rs-form-errors {
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  background: #ffebee;
+  color: #b71c1c;
+  font-size: 0.85rem;
+}
+
+.rs-form-errors__title {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+/* フォームアクション横並び */
+.rs-form-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+/* ゴーストボタン（サブ） */
+.rs-button-ghost {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-subtle, #ccd3e2);
+  background: transparent;
+  text-decoration: none;
+}
+
+/* 空状態 */
+.rs-empty-state {
+  padding: 0.9rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(0, 0, 0, 0.02);
+  font-size: 0.9rem;
+}
+
+.rs-empty-state__title {
+  margin: 0 0 0.2rem;
+  font-weight: 600;
+}
+
+.rs-empty-state__body {
+  margin: 0;
+}
+
+/* カテゴリ一覧テーブル（前に渡したものと合わせてOK） */
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.category-table th,
+.category-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle, #e0e4f0);
+}
+
+.category-table th {
+  text-align: left;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.category-table__actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rs-table-link {
+  font-size: 0.85rem;
+  margin-right: 0.4rem;
+  color: var(--link, #4863f7);
+}
+
+.rs-table-link--danger {
+  color: #d9534f;
+}
+
+/* スマホ対応 */
+@media (max-width: 800px) {
+  .categories-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .category-table__actions {
+    text-align: left;
+  }
 }
