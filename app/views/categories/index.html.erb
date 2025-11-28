@@ -1,72 +1,94 @@
 <!-- app/views/categories/index.html.erb -->
 
-<div class="page-main">
-  <header class="page-header">
-    <h1 class="page-title">カテゴリ管理</h1>
-    <p class="page-subtitle">
-      学習ログで使用するカテゴリを追加・編集・削除できます。
-    </p>
-  </header>
+<div class="rs-page-container">
+  <div class="rs-page-card">
 
-  <div class="card categories-layout">
-    <section class="categories-new">
-      <h2>新しいカテゴリを追加</h2>
+    <header class="rs-page-header">
+      <h1 class="rs-page-title">カテゴリ管理</h1>
+      <p class="rs-page-subtitle">
+        学習ログで使用するカテゴリを追加・編集・削除できます。
+      </p>
+    </header>
 
-      <%= form_with model: @category, url: categories_path, local: true, class: "categories-form" do |f| %>
-        <% if @category.errors.any? %>
-          <div class="errors">
-            <ul>
-              <% @category.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
+    <div class="categories-layout">
+      <!-- 左側：新規追加フォーム -->
+      <section class="categories-new">
+        <h2 class="section-title">新しいカテゴリを追加</h2>
+
+        <%= form_with model: @category,
+                      url: categories_path,
+                      local: true,
+                      class: "categories-form" do |f| %>
+
+          <% if @category.errors.any? %>
+            <div class="rs-form-errors">
+              <p class="rs-form-errors__title">
+                <%= pluralize(@category.errors.count, "件のエラー") %>があります：
+              </p>
+              <ul>
+                <% @category.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="rs-form-group">
+            <label class="rs-form-label" for="category_name">カテゴリ名</label>
+            <%= f.text_field :name,
+                  required: true,
+                  placeholder: "例）Rails, Excel VBA, M言語",
+                  class: "rs-input-text" %>
+          </div>
+
+          <div class="rs-form-actions">
+            <%= f.submit "追加", class: "rs-button-primary" %>
+            <%= link_to "ログ一覧に戻る", logs_path, class: "rs-button-ghost" %>
           </div>
         <% end %>
+      </section>
 
-        <div class="field">
-          <%= f.label :name, "カテゴリ名" %>
-          <%= f.text_field :name, required: true, placeholder: "例）Rails, Excel VBA, M言語" %>
-        </div>
+      <!-- 右側：登録済みカテゴリ一覧 -->
+      <section class="categories-list">
+        <h2 class="section-title">登録済みカテゴリ</h2>
 
-        <div class="actions">
-          <%= f.submit "追加", class: "btn-accent" %>
-          <%= link_to "戻る", logs_path, class: "btn-subtle" %>
-        </div>
-      <% end %>
-    </section>
-
-    <section class="categories-list">
-      <h2>登録済みカテゴリ</h2>
-
-      <% if @categories.empty? %>
-        <div class="empty-state">
-          <p>まだカテゴリがありません。</p>
-          <p>最初のカテゴリとして「Ruby」「Excel VBA」などを作成してみましょう。</p>
-        </div>
-      <% else %>
-        <table class="categories-table">
-          <thead>
-            <tr>
-              <th>名前</th>
-              <th style="width: 120px;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @categories.each do |category| %>
+        <% if @categories.empty? %>
+          <div class="rs-empty-state">
+            <p class="rs-empty-state__title">まだカテゴリがありません。</p>
+            <p class="rs-empty-state__body">
+              最初のカテゴリとして「Ruby」「Excel VBA」などを作成してみましょう。
+            </p>
+          </div>
+        <% else %>
+          <table class="category-table">
+            <thead>
               <tr>
-                <td><%= category.name %></td>
-                <td class="categories-actions">
-                  <%= link_to "編集", edit_category_path(category), class: "btn-subtle" %>
-                  <%= link_to "削除", category_path(category),
-                        data: { turbo_method: :delete,
-                                turbo_confirm: "カテゴリ\"#{category.name}\"を削除しますか？（関連ログのカテゴリは未設定になります）" },
-                        class: "btn-subtle" %>
-                </td>
+                <th>名前</th>
+                <th style="width: 150px;"></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </section>
+            </thead>
+            <tbody>
+              <% @categories.each do |category| %>
+                <tr>
+                  <td><%= category.name %></td>
+                  <td class="category-table__actions">
+                    <%= link_to "編集",
+                          edit_category_path(category),
+                          class: "rs-table-link" %>
+                    <%= link_to "削除",
+                          category_path(category),
+                          data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "カテゴリ「#{category.name}」を削除しますか？（関連ログのカテゴリは未設定になります）"
+                          },
+                          class: "rs-table-link rs-table-link--danger" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </section>
+    </div>
   </div>
 </div>
