@@ -1212,11 +1212,22 @@ body.is-modal-open {
   padding: 2rem 2.5rem;
 }
 
+:root[data-theme="dark"] .rs-page-card {
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+
 /* ページタイトル・サブタイトル */
 .rs-page-title {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
+}
+
+:root[data-theme="dark"] .rs-page-title,
+:root[data-theme="dark"] .rs-page-subtitle {
+  color: var(--text-main);
 }
 
 .rs-page-subtitle {
@@ -1247,6 +1258,20 @@ body.is-modal-open {
   font-size: 0.9rem;
   outline: none;
   background: var(--surface-input, #fff);
+}
+
+:root[data-theme="dark"] .rs-input-text,
+:root[data-theme="dark"] .rs-select,
+:root[data-theme="dark"] .rs-input-password {
+  background: color-mix(in srgb, var(--panel) 92%, #0c1222);
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
+  color: var(--text-main);
+}
+
+:root[data-theme="dark"] .rs-input-text::placeholder,
+:root[data-theme="dark"] .rs-select::placeholder,
+:root[data-theme="dark"] .rs-input-password::placeholder {
+  color: var(--text-muted);
 }
 
 .rs-input-text:focus,
@@ -1312,6 +1337,10 @@ body.is-modal-open {
   margin-bottom: 0.75rem;
 }
 
+:root[data-theme="dark"] .section-title {
+  color: var(--text-main);
+}
+
 /* エラー表示 */
 .rs-form-errors {
   margin-bottom: 0.75rem;
@@ -1344,6 +1373,12 @@ body.is-modal-open {
   border: 1px solid var(--border-subtle, #ccd3e2);
   background: transparent;
   text-decoration: none;
+  color: var(--text-sub);
+}
+
+:root[data-theme="dark"] .rs-button-ghost {
+  color: var(--text-main);
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
 }
 
 /* 空状態 */
@@ -1383,9 +1418,43 @@ body.is-modal-open {
   background: rgba(0, 0, 0, 0.02);
 }
 
+.category-table th,
+.category-table td {
+  color: var(--text-main);
+}
+
+:root[data-theme="dark"] .category-table th {
+  background: color-mix(in srgb, var(--panel) 85%, #ffffff10);
+}
+
 .category-table__actions {
   text-align: right;
   white-space: nowrap;
+}
+
+.categories-edit-panel {
+  margin-top: 2rem;
+  max-width: 400px;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 96%, #000000);
+  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+}
+
+:root[data-theme="dark"] .categories-edit-panel {
+  background: color-mix(in srgb, var(--panel) 92%, #0c1222);
+  border-color: color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.categories-edit-caption {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.categories-edit-panel .rs-input-text {
+  max-width: 380px;        /* 好みの幅 */
+  border: 1.5px solid #666; /* 好みの枠幅/色 */
 }
 
 .rs-table-link {
@@ -1407,4 +1476,8 @@ body.is-modal-open {
   .category-table__actions {
     text-align: left;
   }
+}
+
+.is-hidden {
+  display: none;
 }
