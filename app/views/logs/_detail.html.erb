@@ -96,7 +96,7 @@
   <footer class="log-detail-actions">
     <%= link_to "編集", edit_log_path(log), class: "btn-accent" %>
     <%= link_to "削除", log_path(log),
-          data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+          data: { turbo_method: :delete, turbo_confirm: "この学習ログを削除してもよろしいですか？" },
           class: "btn-danger" %>
   </footer>
 </div>
