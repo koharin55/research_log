@@ -475,7 +475,7 @@ textarea {
 .log-card {
   padding: 8px 10px;
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 1px solid color-mix(in srgb, var(--border) 35%, transparent);
   background: var(--panel);
   cursor: pointer;
   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, border-color 0.1s ease-out;
