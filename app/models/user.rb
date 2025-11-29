@@ -26,5 +26,11 @@ class User < ApplicationRecord
   has_many :logs,       dependent: :destroy
   has_many :categories, dependent: :destroy
 
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+  validates :password, format: {
+    with: PASSWORD_REGEX,
+    message: 'は半角英数を両方含む必要があります'
+  }
+  validates :password, length: { minimum: 6 }
   validates :nickname, presence: true, length: { maximum: 30 }
 end

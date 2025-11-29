@@ -26,6 +26,21 @@
 #
 FactoryBot.define do
   factory :log do
-    
+    association :user
+
+    title       { Faker::Lorem.sentence(word_count: 3) }
+    memo        { Faker::Lorem.paragraph(sentence_count: 2) }
+    body        { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+    code        { "puts \"#{Faker::ProgrammingLanguage.name} snippet\"" }
+    copy_count  { 0 }
+    pinned      { false }
+
+    trait :pinned do
+      pinned { true }
+    end
+
+    trait :with_category do
+      association :category
+    end
   end
 end
