@@ -22,6 +22,9 @@
 #
 FactoryBot.define do
   factory :category do
-    
+    association :user
+    name { Faker::Job.field }
+    icon { nil }
+    color { nil }
   end
 end

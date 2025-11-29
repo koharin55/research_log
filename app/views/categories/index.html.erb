@@ -10,7 +10,7 @@
       </p>
     </header>
 
-    <div class="categories-layout">
+    <div class="categories-layout" data-controller="category-inline-edit">
       <!-- 左側：新規追加フォーム -->
       <section class="categories-new">
         <h2 class="section-title">新しいカテゴリを追加</h2>
@@ -46,6 +46,38 @@
             <%= link_to "ログ一覧に戻る", logs_path, class: "rs-button-ghost" %>
           </div>
         <% end %>
+
+        <section class="categories-edit-panel is-hidden" data-category-inline-edit-target="panel">
+          <h3 class="section-title">カテゴリを編集</h3>
+          <p class="categories-edit-caption" data-category-inline-edit-target="caption">
+            編集したいカテゴリの「編集」をクリックしてください。
+          </p>
+
+          <%= form_with model: @category,
+                        url: "#",
+                        method: :patch,
+                        local: true,
+                        html: { data: { category_inline_edit_target: "form" }, class: "categories-form" } do |f| %>
+            <div class="rs-form-group">
+              <label class="rs-form-label" for="category_edit_name">カテゴリ名</label>
+              <%= f.text_field :name,
+                    required: true,
+                    placeholder: "カテゴリ名を入力",
+                    class: "rs-input-text",
+                    id: "category_edit_name",
+                    data: { category_inline_edit_target: "input" } %>
+            </div>
+
+            <div class="rs-form-actions">
+              <%= f.submit "更新", class: "rs-button-primary" %>
+              <button type="button"
+                      class="rs-button-ghost"
+                      data-action="category-inline-edit#cancel">
+                キャンセル
+              </button>
+            </div>
+          <% end %>
+        </section>
       </section>
 
       <!-- 右側：登録済みカテゴリ一覧 -->
@@ -74,7 +106,12 @@
                   <td class="category-table__actions">
                     <%= link_to "編集",
                           edit_category_path(category),
-                          class: "rs-table-link" %>
+                          class: "rs-table-link",
+                          data: {
+                            action: "category-inline-edit#start",
+                            category_inline_edit_url_param: category_path(category),
+                            category_inline_edit_name_param: category.name
+                          } %>
                     <%= link_to "削除",
                           category_path(category),
                           data: {
