@@ -226,6 +226,26 @@ textarea {
   background: var(--panel);
 }
 
+/* 危険操作用ボタン（削除など） */
+.btn-danger {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #d86b67 50%, var(--border));
+  background: #d86b67;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-danger:hover {
+  filter: brightness(0.99);
+}
+.btn-danger:focus-visible {
+  outline: 2px solid color-mix(in srgb, #d86b67 70%, #000);
+  outline-offset: 2px;
+}
+
 /* =========================
    左ペイン（検索・一覧）
    ========================= */
@@ -653,7 +673,7 @@ textarea {
   background: color-mix(in srgb, var(--panel) 95%, #000000);
   border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   border-radius: 10px;
-  padding: 0px 12px;
+  padding: 10px 12px;
   font-size: 13px;
   color: var(--text-main);
 }
@@ -662,8 +682,8 @@ textarea {
 
 .section-body--code,
 .section-body--images {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .hint {
