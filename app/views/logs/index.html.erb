@@ -3,16 +3,16 @@
   <section class="logs-pane-list card">
     <!-- 左ペインヘッダー -->
     <header class="logs-pane-header">
-      <div class="logs-pane-header-top">
+      <div class="logs-pane-header-row">
         <h1 class="logs-pane-title">学習ログ</h1>
-        <p class="logs-pane-subtitle">
-          キーワード・タグ・カテゴリで、手元のナレッジをすばやく絞り込みできます。
-        </p>
+        <div class="logs-pane-header-actions">
+          <%= link_to "＋ 新規ログ", new_log_path, class: "btn-accent" %>
+          <%= link_to "カテゴリ管理", categories_path, class: "btn-subtle" %>
+        </div>
       </div>
-      <div class="logs-pane-header-actions">
-        <%= link_to "＋ 新規ログ", new_log_path, class: "btn-accent" %>
-        <%= link_to "カテゴリ管理", categories_path, class: "btn-subtle" %>
-      </div>
+      <p class="logs-pane-subtitle">
+        キーワード・タグ・カテゴリで、手元のナレッジをすばやく絞り込みできます。
+      </p>
     </header>
 
     <!-- 絞り込みフォーム -->
