@@ -21,8 +21,7 @@
   <div class="field">
     <%= f.label :category_id, "カテゴリ" %>
     <%= f.collection_select :category_id,
-          current_user.categories.order(:name), :id, :name,
-          { include_blank: "未設定" } %>
+          current_user.categories.order(:name), :id, :name %>
   </div>
 
   <div class="field">
@@ -41,7 +40,7 @@
 
   <div class="field">
     <%= f.label :code, "コード例" %>
-    <%= f.text_area :code, rows: 10 %>
+    <%= f.text_area :code, rows: 10, placeholder: "ここに書いた内容は丸ごとクリップボードへコピー可能です" %>
   </div>
 
   <div class="field">

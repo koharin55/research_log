@@ -11,7 +11,7 @@
 #  title       :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  category_id :bigint
+#  category_id :bigint           not null
 #  user_id     :bigint           not null
 #
 # Indexes
@@ -27,6 +27,7 @@
 FactoryBot.define do
   factory :log do
     association :user
+    association :category
 
     title       { Faker::Lorem.sentence(word_count: 3) }
     memo        { Faker::Lorem.paragraph(sentence_count: 2) }
@@ -41,6 +42,11 @@ FactoryBot.define do
 
     trait :with_category do
       association :category
+    end
+
+    after(:build) do |log|
+      log.body = "これはテスト用の本文です。"
+      log.memo = "これはテスト用のメモです。"
     end
   end
 end

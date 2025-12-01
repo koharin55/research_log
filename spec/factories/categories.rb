@@ -23,8 +23,9 @@
 FactoryBot.define do
   factory :category do
     association :user
-    name { Faker::Job.field }
+    sequence(:name) { |n| "#{Faker::Job.field}#{n}" }  # sequence を使ってユーザーごとにユニークな名前にする
     icon { nil }
     color { nil }
   end
 end
+

@@ -11,7 +11,7 @@
 #  title       :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  category_id :bigint
+#  category_id :bigint           not null
 #  user_id     :bigint           not null
 #
 # Indexes
@@ -26,7 +26,7 @@
 #
 class Log < ApplicationRecord
   belongs_to :user
-  belongs_to :category, optional: true
+  belongs_to :category
 
   has_many_attached :images
 
@@ -37,7 +37,8 @@ class Log < ApplicationRecord
   has_rich_text :memo
 
   validates :title, presence: true, length: { maximum: 100 }
-  # validates :memo,  length: { maximum: 200 }, allow_blank: true
+  validates :category_id, numericality: { only_integer: true }, presence: true
+  validates :memo,  length: { maximum: 200 }, allow_blank: true
   validate :images_count_within_limit
 
   # --- 並び順スコープ ---

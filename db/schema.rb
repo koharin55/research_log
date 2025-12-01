@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_143055) do
 
   create_table "logs", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.string "title", null: false
     t.text "body"
     t.text "code"

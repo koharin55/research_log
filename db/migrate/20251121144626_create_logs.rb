@@ -2,7 +2,7 @@ class CreateLogs < ActiveRecord::Migration[7.1]
   def change
     create_table :logs do |t|
       t.references :user,       null: false, foreign_key: true
-      t.references :category,   null: true,  foreign_key: true
+      t.references :category,   null: false,  foreign_key: true
       t.string     :title,      null: false
       t.text       :body
       t.text       :code
