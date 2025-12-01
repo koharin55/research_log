@@ -175,7 +175,7 @@ textarea {
 
 .logs-layout {
   display: grid;
-  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  grid-template-columns: minmax(260px, 420px) minmax(0, 1fr); 
   gap: 16px;
 }
 
@@ -391,7 +391,8 @@ textarea {
 /* 「適用」ボタンのセルだけ下端を揃える */
 
 .filters-submit {
-  align-self: flex-end;
+  align-self:normal;
+  margin-top: 30px;
 }
 
 .filters-apply-button {

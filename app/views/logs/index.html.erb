@@ -54,6 +54,11 @@
                   [["更新日（新しい順）", "recent"],
                    ["使用頻度（コピー回数）", "used"]],
                   { selected: params[:sort] || "recent" } %>
+          <!-- ▶ 適用ボタン -->
+          <div class="filters-block filters-submit">
+            <%= f.submit "検索 / 適用", class: "btn-accent filters-apply-button" %>
+            <%= link_to "クリア", logs_path, class: "btn-subtle filters-clear-button" %>
+          </div>
           </div>
 
           <!-- 🏷 タグ（複数選択） -->
@@ -62,18 +67,10 @@
             <%= f.collection_select :tag_ids,
                   @tag_suggestions, :id, :name,
                   { include_hidden: false, selected: @selected_tag_ids },
-                  { multiple: true, size: 5 } %>
+                  { multiple: true, size: 11 } %>
             <p class="filters-help">
               Ctrl / Cmd + クリックで複数選択できます。
             </p>
-          </div>
-
-          <!-- ▶ 適用ボタン -->
-          <div class="filters-block filters-submit">
-            <%= f.submit "検索 / 適用", class: "btn-accent filters-apply-button" %>
-          </div>
-          <div class="filters-block filters-submit">
-            <%= link_to "クリア", logs_path, class: "btn-subtle filters-clear-button" %>
           </div>
         </div>
       <% end %>
