@@ -49,6 +49,11 @@
             <%= f.collection_select :category_id,
                   @categories, :id, :name,
                   { include_blank: "すべて", selected: @selected_category_id } %>
+            <%= f.label :sort, "並び順" %>
+            <%= f.select :sort,
+                  [["更新日（新しい順）", "recent"],
+                   ["使用頻度（コピー回数）", "used"]],
+                  { selected: params[:sort] || "recent" } %>
           </div>
 
           <!-- 🏷 タグ（複数選択） -->
@@ -63,18 +68,11 @@
             </p>
           </div>
 
-          <!-- ↕ 並び順 -->
-          <div class="filters-block">
-            <%= f.label :sort, "並び順" %>
-            <%= f.select :sort,
-                  [["更新日（新しい順）", "recent"],
-                   ["使用頻度（コピー回数）", "used"]],
-                  { selected: params[:sort] || "recent" } %>
-          </div>
-
           <!-- ▶ 適用ボタン -->
           <div class="filters-block filters-submit">
             <%= f.submit "検索 / 適用", class: "btn-accent filters-apply-button" %>
+          </div>
+          <div class="filters-block filters-submit">
             <%= link_to "クリア", logs_path, class: "btn-subtle filters-clear-button" %>
           </div>
         </div>
