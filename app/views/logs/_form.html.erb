@@ -2,14 +2,16 @@
               html: { class: "log-form js-log-form",
                       data: { existing_images_count: @log.images.size } } do |f| %>
 
-  <% if @log.errors.any? %>
-    <div class="errors card">
-      <p><%= pluralize(@log.errors.count, "件") %>のエラーがあります。</p>
-      <ul>
-        <% @log.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<% if @log.errors.any? %>
+  <div class="rs-form-errors">
+    <p class="rs-form-errors__title">
+      <%= pluralize(@log.errors.count, "件のエラー") %>があります。
+    </p>
+    <ul>
+      <% @log.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
     </div>
   <% end %>
 
