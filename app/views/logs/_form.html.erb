@@ -21,7 +21,8 @@
   <div class="field">
     <%= f.label :category_id, "カテゴリ" %>
     <%= f.collection_select :category_id,
-          current_user.categories.order(:name), :id, :name %>
+          current_user.categories.order(:name), :id, :name,
+          { include_blank: "カテゴリを選択してください" } %>
   </div>
 
   <div class="field">
@@ -71,7 +72,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit(@log.persisted? ? "学習を修正" : "学習を記録", class: "btn-accent") %>
+    <%= f.submit(@log.persisted? ? "知識をアップデート" : "知識を記録", class: "btn-accent") %>
     <%= link_to "キャンセル", logs_path, class: "btn-subtle" %>
   </div>
 <% end %>
