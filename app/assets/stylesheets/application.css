@@ -591,7 +591,7 @@ textarea {
   background: var(--panel);
   border-radius: 16px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-  padding: 20px 24px 24px;
+  padding: 24px 36px 24px;
   min-height: 260px;
   display: flex;
   flex-direction: column;
@@ -1148,6 +1148,7 @@ body.is-modal-open {
   border-radius: 16px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
   padding: 20px 32px 24px;
+  max-width: 900px;
 }
 
 /* form_with に class="log-form" を付けている想定 */
@@ -1218,6 +1219,7 @@ body.is-modal-open {
   font-size: 13px;
   line-height: 1.6;
   width: 100%;
+  max-width: 900px;
   box-sizing: border-box;
 }
 
@@ -1244,7 +1246,7 @@ body.is-modal-open {
   background: var(--surface-main, #fff);
   border-radius: 1.25rem;
   box-shadow: 0 12px 30px rgba(15, 35, 80, 0.08);
-  padding: 2rem 2.5rem;
+  padding: 2rem 4.3rem;
 }
 
 :root[data-theme="dark"] .rs-page-card {
