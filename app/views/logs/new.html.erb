@@ -1,12 +1,14 @@
-<div class="page-main">
-  <header class="page-header">
-    <h1 class="page-title">新規ログ作成</h1>
-    <p class="page-subtitle">
-      今日の学びを、あとで再利用しやすい形でメモしておきましょう。
-    </p>
-  </header>
+<div class="rs-page-container log-form-page">
+  <div class="rs-page-card">
+    <header class="rs-page-header">
+      <h1 class="page-title">新規ログ作成</h1>
+      <p class="page-subtitle">
+        今日の学びを、あとで再利用しやすい形でメモしておきましょう。
+      </p>
+    </header>
 
-  <div class="log-form-wrapper">
-    <%= render "form", log: @log %>
+    <div class="log-form-wrapper">
+      <%= render "form", log: @log %>
+    </div>
   </div>
 </div>

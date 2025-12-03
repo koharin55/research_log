@@ -2,16 +2,16 @@
               html: { class: "log-form js-log-form",
                       data: { existing_images_count: @log.images.size } } do |f| %>
 
-<% if @log.errors.any? %>
-  <div class="rs-form-errors">
-    <p class="rs-form-errors__title">
-      <%= pluralize(@log.errors.count, "件のエラー") %>があります。
-    </p>
-    <ul>
-      <% @log.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+  <% if @log.errors.any? %>
+    <div class="rs-form-errors">
+      <p class="rs-form-errors__title">
+        <%= pluralize(@log.errors.count, "件のエラー") %>があります。
+      </p>
+      <ul>
+        <% @log.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
@@ -31,14 +31,13 @@
     <%= label_tag :tag_names, "タグ（カンマ区切り）" %>
     <%= text_field_tag :tag_names,
           @log.tags&.map(&:name)&.join(", "),
-          placeholder: "例）Rails, ActiveRecord, VLOOKUP" %>
-    <p class="hint">既存タグ候補は一覧画面のタグフィルタでサジェスト。</p>
+          placeholder: "例) AIプロンプト, Ruby on Rails, Excel VBA" %>
+    <p class="hint">既存のタグは一覧のタグフィルタで確認できます。</p>
   </div>
 
   <div class="field">
     <%= f.label :body, "説明" %>
-    <%= f.rich_text_area :body, placeholder: "ここに説明を書くことができます…" %>
-
+    <%= f.rich_text_area :body, placeholder: "説明を入力してください" %>
   </div>
 
   <div class="field">
@@ -50,7 +49,7 @@
     <%= f.label :images, "画像（0〜5枚）" %>
     <%= f.file_field :images, multiple: true, accept: "image/*" %>
     <p class="hint paste-hint">
-      ファイル選択のほか、フォーム上で Ctrl+V するとスクリーンショットを画像として追加できます。
+      ファイル選択に加えて、フォーム上で Ctrl+V / Cmd+V でスクリーンショットを画像として追加できます。
     </p>
 
     <% if @log.persisted? && @log.images.attached? %>

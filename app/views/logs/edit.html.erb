@@ -1,12 +1,14 @@
-<div class="page-main">
-  <header class="page-header">
-    <h1 class="page-title">ログを編集</h1>
-    <p class="page-subtitle">
-      タイトルやメモ、画像を更新できます。
-    </p>
-  </header>
+<div class="rs-page-container log-form-page">
+  <div class="rs-page-card">
+    <header class="rs-page-header">
+      <h1 class="page-title">ログを編集</h1>
+      <p class="page-subtitle">
+        学習ログを最新の内容にアップデートしましょう。
+      </p>
+    </header>
 
-  <div class="log-form-wrapper">
-    <%= render "form", log: @log %>
+    <div class="log-form-wrapper">
+      <%= render "form", log: @log %>
+    </div>
   </div>
 </div>
