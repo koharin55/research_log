@@ -1273,6 +1273,32 @@ body.is-modal-open {
   margin-bottom: 1.6rem;
 }
 
+/* マイページ（アカウント編集） */
+.account-page .rs-page-card {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.account-form .rs-form-group + .rs-form-group {
+  margin-top: 10px;
+}
+
+.account-danger {
+  margin-top: 20px;
+  padding: 14px 16px;
+}
+
+.account-danger__title {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.account-danger__body {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* 汎用フォームスタイル（Devise やカテゴリでも使う） */
 .rs-form-group {
   margin-bottom: 1rem;
