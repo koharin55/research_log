@@ -28,7 +28,9 @@
       <div class="app-header-right">
         <% if user_signed_in? %>
           <div class="app-user">
-            こんにちは、<%= current_user.nickname %> さん
+            こんにちは、<%= link_to current_user.nickname,
+              edit_user_registration_path,
+              class: "nav-link" %> さん
             （<%= link_to "ログアウト",
               destroy_user_session_path,
               data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" },
