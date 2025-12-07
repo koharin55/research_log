@@ -46,7 +46,7 @@
       <div class="field">
         <%= f.label :password, "パスワード" %>
         <% if @minimum_password_length %>
-          <span class="auth-hint">（<%= @minimum_password_length %>文字以上）</span>
+          <span class="auth-hint">（半角英数<%= @minimum_password_length %>文字以上）</span>
         <% end %>
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>

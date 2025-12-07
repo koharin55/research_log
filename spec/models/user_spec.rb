@@ -35,9 +35,9 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
 
-      it 'passwordが6文字以上で、半角英数字を両方含んでいれば登録できる' do
-        @user.password = 'abc123'
-        @user.password_confirmation = 'abc123'
+      it 'passwordが8文字以上で、半角英数字を両方含んでいれば登録できる' do
+        @user.password = 'abc12345'
+        @user.password_confirmation = 'abc12345'
         expect(@user).to be_valid
       end
     end
@@ -80,11 +80,11 @@ RSpec.describe User, type: :model do
         expect(another_user.errors.full_messages).to include("Emailはすでに存在します")
       end
 
-      it "パスワードが6文字未満だと無効" do
-        @user.password = "abc1!"
-        @user.password_confirmation = "abc1!"
+      it "パスワードが8文字未満だと無効" do
+        @user.password = "abc123"
+        @user.password_confirmation = "abc123"
         @user.valid?
-        expect(@user.errors.full_messages).to include("Passwordは6文字以上で入力してください")
+        expect(@user.errors.full_messages).to include("Passwordは8文字以上で入力してください")
       end
 
       it 'passwordは半角英字のみでは登録できない' do
