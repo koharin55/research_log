@@ -59,25 +59,31 @@ scope :keyword_search, ->(query, mode: :and) {
 
   table = arel_table
 
+  base = left_outer_joins(:rich_text_memo)
+
   case mode.to_s
   when 'or'
     # OR検索（どれかの単語がヒット）
     or_condition = terms.map do |term|
       like = "%#{term}%"
+      rich_text_clause = Arel.sql("action_text_rich_texts.body LIKE #{ActiveRecord::Base.connection.quote(like)}")
       table[:title].matches(like)
         .or(table[:memo].matches(like))
         .or(table[:code].matches(like))
+        .or(rich_text_clause)
     end.inject { |cond, c| cond.or(c) }
 
-    where(or_condition)
+    base.where(or_condition)
 
   else
     # AND検索（すべての単語を含む）
-    terms.inject(all) do |scope, term|
+    terms.inject(base) do |scope, term|
       like = "%#{term}%"
+      rich_text_clause = Arel.sql("action_text_rich_texts.body LIKE #{ActiveRecord::Base.connection.quote(like)}")
       condition = table[:title].matches(like)
                     .or(table[:memo].matches(like))
                     .or(table[:code].matches(like))
+                    .or(rich_text_clause)
       scope.where(condition)
     end
   end
