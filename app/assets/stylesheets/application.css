@@ -1114,6 +1114,14 @@ body.is-modal-open {
   font-size: 13px;
 }
 
+/* 認証フォームの入力幅を揃える */
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* =========================
    ページレイアウト（new / edit）
    ========================= */
