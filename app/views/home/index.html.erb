@@ -1,0 +1,20 @@
+<div class="home-hero">
+  <div class="home-hero__bg"></div>
+  <%# <div class="home-hero__overlay"></div> %>
+  <div class="home-hero__logo">
+    <%= image_tag "logo_research_light.png", alt: "Re:Search" %>
+    <p class="home-hero__tagline sr-only">- 知識を、再発見する。 -</p>
+  </div>
+
+  <div class="home-hero__content">
+    <h1 class="home-hero__title">
+      あなたの知識を、<br>
+      未来の力へ。
+    </h1>
+
+    <div class="home-hero__actions">
+      <%= link_to "ログイン", new_user_session_path, class: "home-hero__btn home-hero__btn--ghost" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "home-hero__btn home-hero__btn--solid" %>
+    </div>
+  </div>
+</div>

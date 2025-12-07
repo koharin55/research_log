@@ -9,54 +9,56 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <header class="app-header">
-      <div class="app-logo">
-        <%= link_to root_path, class: "app-logo-link" do %>
-          <span class="app-logo-image app-logo-image--light">
-            <%= image_tag "logo_research_light.png", alt: "Re:Search -知識を、再発見する。" %>
-          </span>
-          <span class="app-logo-image app-logo-image--dark">
-            <%= image_tag "logo_research_dark.png", alt: "Re:Search -知識を、再発見する。" %>
-          </span>
-          <span class="app-logo-text sr-only">
-            Re:Search -知識を、再発見する。
-          </span>
-        <% end %>
-      </div>
-
-      <div class="app-header-right">
-        <% if user_signed_in? %>
-          <div class="app-user">
-            こんにちは、<%= link_to current_user.nickname,
-              edit_user_registration_path,
-              class: "nav-link" %> さん
-            （<%= link_to "ログアウト",
-              destroy_user_session_path,
-              data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" },
-              class: "nav-link" %>）
-          </div>
-        <% else %>
-          <div class="app-user">
-            <%= link_to "ログイン", new_user_session_path %> /
-            <%= link_to "新規登録", new_user_registration_path %>
-          </div>
-        <% end %>
-
-        <!-- テーマ切替：☀️ライト / 🌙ダーク / 🖥️OS設定 -->
-        <div class="theme-switch" role="group" aria-label="テーマ切替">
-          <button type="button" data-mode="light" title="ライト">
-            ☀️ ライト
-          </button>
-          <button type="button" data-mode="dark" title="ダーク">
-            🌙 ダーク
-          </button>
-          <button type="button" data-mode="auto" title="自動（OS連動）">
-            🖥️ OS設定
-          </button>
+  <body class="<%= "#{controller_name}-#{action_name}" %>">
+    <% unless controller_name == "home" && action_name == "index" %>
+      <header class="app-header">
+        <div class="app-logo">
+          <%= link_to root_path, class: "app-logo-link" do %>
+            <span class="app-logo-image app-logo-image--light">
+              <%= image_tag "logo_research_light.png", alt: "Re:Search -知識を、再発見する。" %>
+            </span>
+            <span class="app-logo-image app-logo-image--dark">
+              <%= image_tag "logo_research_dark.png", alt: "Re:Search -知識を、再発見する。" %>
+            </span>
+            <span class="app-logo-text sr-only">
+              Re:Search -知識を、再発見する。
+            </span>
+          <% end %>
         </div>
-      </div>
-    </header>
+
+        <div class="app-header-right">
+          <% if user_signed_in? %>
+            <div class="app-user">
+              こんにちは、<%= link_to current_user.nickname,
+                edit_user_registration_path,
+                class: "nav-link" %> さん
+              （<%= link_to "ログアウト",
+                destroy_user_session_path,
+                data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" },
+                class: "nav-link" %>）
+            </div>
+          <% else %>
+            <div class="app-user">
+              <%= link_to "ログイン", new_user_session_path %> /
+              <%= link_to "新規登録", new_user_registration_path %>
+            </div>
+          <% end %>
+
+          <!-- テーマ切替：☀️ライト / 🌙ダーク / 🖥️OS設定 -->
+          <div class="theme-switch" role="group" aria-label="テーマ切替">
+            <button type="button" data-mode="light" title="ライト">
+              ☀️ ライト
+            </button>
+            <button type="button" data-mode="dark" title="ダーク">
+              🌙 ダーク
+            </button>
+            <button type="button" data-mode="auto" title="自動（OS連動）">
+              🖥️ OS設定
+            </button>
+          </div>
+        </div>
+      </header>
+    <% end %>
 
     <main class="app-main">
       <% if notice %>

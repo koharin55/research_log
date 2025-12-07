@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root "logs#index"
+  root "home#index"
+  # get "/home", to: "home#index"
 
   resources :logs do
     member do
