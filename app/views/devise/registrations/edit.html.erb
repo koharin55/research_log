@@ -80,7 +80,8 @@
 
       <div class="rs-form-actions">
         <%= f.submit "更新する", class: "btn-accent" %>
-        <%= link_to "キャンセル", root_path, class: "btn-subtle" %>
+        <% back_path = request.referer.presence || logs_path %>
+        <%= link_to "キャンセル", back_path, class: "btn-subtle" %>
       </div>
     <% end %>
 
