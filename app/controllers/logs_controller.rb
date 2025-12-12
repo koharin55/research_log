@@ -127,6 +127,8 @@ class LogsController < ApplicationController
     case params[:sort]
     when "used"
       scope.order(copy_count: :desc)
+    when "title_asc"
+      scope.order(title: :asc)
     else
       scope.order(updated_at: :desc)
     end

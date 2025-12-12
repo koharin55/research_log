@@ -1,11 +1,5 @@
 <% active   = defined?(selected_log) && selected_log.present? && selected_log.id == log.id %>
-<% log_url = logs_path(
-      selected_id: log.id,
-      q:          params[:q],
-      tag:        params[:tag],
-      category_id: params[:category_id],
-      sort:       params[:sort]
-    ) %>
+<% log_url = logs_path(request.query_parameters.merge(selected_id: log.id)) %>
 
 <div class="log-card <%= 'is-active' if active %>"
      data-log-url="<%= log_url %>"

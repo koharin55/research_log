@@ -48,11 +48,13 @@
             <%= f.label :category_id, "カテゴリ" %>
             <%= f.collection_select :category_id,
                   @categories, :id, :name,
-                  { include_blank: "すべて", selected: @selected_category_id } %>
+                  { include_blank: "すべて", selected: @selected_category_id },
+                  { onchange: "this.form.requestSubmit();" } %>
             <%= f.label :sort, "並び順" %>
             <%= f.select :sort,
                   [["更新日（新しい順）", "recent"],
-                   ["使用頻度（コピー回数）", "used"]],
+                   ["使用頻度（コピー回数）", "used"],
+                   ["50音順（タイトル昇順）", "title_asc"]],
                   { selected: params[:sort] || "recent" } %>
           <!-- ▶ 適用ボタン -->
           <div class="filters-block filters-submit">
@@ -124,5 +126,3 @@
     <% end %>
   </section>
 </div>
-
-
